@@ -52,7 +52,7 @@ class ReportController extends Controller
                 $action .= "<button type='submit'class='btn btn-primary btn-block'><i class='fas fa-key'></i></button>";
                 $action .= \Form::close();
                 $action .= \Form::open(['url' => 'report/' . $row->id, 'method' => 'delete', 'style' => 'float:right']);
-                $action .= "<button type='submit'class='btn btn-primary btn-block'><i class='fas fa-trash'></i></button>";
+                $action .= "<button onclick='return confirm(\"Apakah Anda Yakin?\")'  type='submit'class='btn btn-primary btn-block'><i class='fas fa-trash'></i></button>";
                 $action .= \Form::close();
             }
             if ($row->status_id == 2) {
@@ -72,7 +72,7 @@ class ReportController extends Controller
             }
 
             if ($row->status_id == 5) {
-                $action .= '<div class="float-sm-right"><a href="/report/export/' . $row->id . '" class="btn btn-primary "><i class="fas fa-print"></i> </a>';
+                $action .= '<div class="float-sm-right"><a href="/report/export/' . $row->id . '" class="btn btn-primary "><i class="fas fa-download"></i> </a>';
 
 
             }
@@ -222,7 +222,7 @@ class ReportController extends Controller
             File::delete('gambar_harian/' . $image->image_path);
             Images::where('id', $image->id)->delete();
         }
-        DB::table('Reports')->where('id', $id)->delete();
+        DB::table('reports')->where('id', $id)->delete();
         return redirect()->back()->withInput();
 
     }

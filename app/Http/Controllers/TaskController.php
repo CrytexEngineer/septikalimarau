@@ -119,7 +119,7 @@ class TaskController extends Controller
     public function destroy($id)
     {
 
-        DB::table('Tasks')->where('id', $id)->delete();
+        DB::table('tasks')->where('id', $id)->delete();
         return redirect()->back()->withInput();
     }
 }

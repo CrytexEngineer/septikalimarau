@@ -1,35 +1,32 @@
 <footer class="footer">
     <div class="container">
         <nav class="float-left">
-        <ul>
-            <li>
-            <a href="https://www.creative-tim.com">
-                {{ __('Creative Tim') }}
-            </a>
-            </li>
-            <li>
-            <a href="https://creative-tim.com/presentation">
-                {{ __('About Us') }}
-            </a>
-            </li>
-            <li>
-            <a href="http://blog.creative-tim.com">
-                {{ __('Blog') }}
-            </a>
-            </li>
-            <li>
-            <a href="https://www.creative-tim.com/license">
-                {{ __('Licenses') }}
-            </a>
-            </li>
-        </ul>
+            <ul>
+                <li>
+                    <a href="https://www.facebook.com/kalimaraucantik" class="btn btn-just-icon btn-link btn-white">
+                        <i class="fa fa-facebook-square"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://twitter.com/Kalimarau_Berau" class="btn btn-just-icon btn-link btn-white">
+                        <i class="fa fa-twitter"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.instagram.com/bandarakalimarau/" class="btn btn-just-icon btn-link btn-white">
+                        <i class="fa fa-instagram"></i>
+                    </a>
+                </li>
+
+            </ul>
         </nav>
-        <div class="copyright float-right">
-        &copy;
-        <script>
+        <div class="copyright float-center">
+            &copy;
+            <script>
             document.write(new Date().getFullYear())
-        </script>, made with <i class="material-icons">favorite</i> by
-        <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> and <a href="https://www.updivision.com" target="_blank">UPDIVISION</a> for a better web.
+
+            </script>
+            , Dibuat Dengan <i class="material-icons">favorite</i> Tata Usaha Bandar Udara Kalimarau
         </div>
     </div>
 </footer>

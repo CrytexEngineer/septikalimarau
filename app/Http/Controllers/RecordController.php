@@ -85,7 +85,13 @@ class RecordController extends Controller
         $data['selectedKanit'] = Report::where('reports.id', '=', $id)->join("users", "reports.kanit_id", "=", "users.id")->get()->first();
         $data['selectedPetugas'] = Report::where('reports.id', '=', $id)->join("users", "reports.petugas_id", "=", "users.id")->get()->first();
         $data['kasi'] = User::where('role_id', '=', '2')->get()->pluck('name', 'id');
-        $data['kanit'] = User::where('role_id', '=', '3')->get()->pluck('name', 'id');
+        if (Auth::user()->hasAnyRoles(['Petugas', 'Kanit'])) {
+            $data['kanit'] = User::where('role_id', '=', '3')
+                ->where('unit_id', '=', Auth::user()->unit_id)->get()->pluck('name', 'id');
+        }
+        if (Auth::user()->hasAnyRoles(['Admin', 'Kasi'])) {
+            $data['kanit'] = User::where('role_id', '=', '3')->get()->pluck('name', 'id');
+        }
         $data['petugas'] = User::where('id', '=', Auth::user()->id)->get()->pluck('name', 'id');
         $data['items'] = Item::where('task_id', '=', $report->first()->task_id)->get();
         $data['task'] = Task::where('tasks.id', '=', $report->first()->task_id);

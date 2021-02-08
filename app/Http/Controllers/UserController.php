@@ -88,11 +88,11 @@ class UserController extends Controller
             "nip" => ['required', 'integer', 'unique:users'],
             "email" => ['required', 'string', 'email', 'unique:users'],
             "unit_id" => ['required', 'string'],
-            "password" => ['required', 'string', 'password'],
+            "password" => ['required', 'string'],
             "role_id" => 'required', 'integer', $messege]);
 
         $user = new User($request->except(['_method', '_token', 'password']));
-        $user['password'] = Hash::make('password');
+        $user['password'] = Hash::make($request->input(['password']));
         $user->save();
         return redirect()->to("/user");
     }
