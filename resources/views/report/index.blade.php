@@ -127,8 +127,7 @@
           $(document).ready(function () {
 
  $('#button').click( function () {
-        console.log( table.row().data());
-    } );
+        console.log( table.row().data()); } );
 
                   $('#table_task tbody').on( 'click', 'tr', function () {
                              $(this).toggleClass('selected');

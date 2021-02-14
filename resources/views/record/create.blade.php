@@ -227,21 +227,7 @@ $(document).ready(function() {
   $('#table_form').DataTable();
       $('#table_picture').DataTable();
 
-{{--    $('button').click( function() {--}}
-            {{--        var data = table.$('input, select').serialize();--}}
-            {{--        console.log(data);--}}
-            {{--        $.ajaxSetup({--}}
-            {{--          headers: {--}}
-            {{--            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
-            {{--          }--}}
-            {{--        });--}}
-            {{--       $.ajax({--}}
-            {{--        url: '/record',--}}
-            {{--        type: 'POST',--}}
-            {{--        data: data,--}}
-            {{--        dataType: 'json'--}}
-            {{--    });--}}
-            {{--    } );--}}
+
             } );
 
 
