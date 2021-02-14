@@ -53,6 +53,7 @@
     columnDefs: [
             { width: '20%' }
         ],
+            "order": [],
         fixedColumns: true,
    processing: true,
                 serverSide: false,

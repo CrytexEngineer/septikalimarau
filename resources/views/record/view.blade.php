@@ -19,9 +19,9 @@
                                       style="margin-right: 8px">{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', Carbon\Carbon::now())->isoFormat('dddd, D MMMM Y')}}</span>
                             </h4>
                             <h4><span class="badge badge-warning" style="margin-right: 8px">
-                        Pagi:{{date("h:i", strtotime($report->first()['created_at']))}}</span></h4>
+                        Pagi:{{date("H:i", strtotime($report->first()['created_at']))}}</span></h4>
                             <h4><span class="badge badge-warning" style="margin-right: 8px">
-                        Siang:{{date("h:i", strtotime($report->first()['updated_at']))}}</span></h4>
+                        Siang:{{date("H:i", strtotime($report->first()['updated_at']))}}</span></h4>
 
                         </div>
                     </h4>
@@ -29,7 +29,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="table_form" class="">
+                        <table id="table_form" class="table-striped">
                             <thead>
                             <tr>
                                 <th>No</th>
@@ -46,9 +46,10 @@
                                         <input type="hidden" id="report_id[]" name="report_id[]"
                                                value={{$report->first()->id }}>
                                         <input type="hidden" id="item_id[]" name="item_id[]" value={{$item->id }}>
-                                        <td><input type="text" id="item_name[]" name="item_name[]"
+                                        <td><input type="hidden" id="item_name[]" name="item_name[]"
                                                    value="{{$item->item_name }}"
                                                    readonly>
+                                            {{$item->item_name }}
                                         </td>
 
                                         <td>
@@ -75,9 +76,10 @@
                                                value={{$report->first()->id }}>
                                         <input type="hidden" id="item_id[]" name="item_id[]"
                                                value={{$record->item_id }}>
-                                        <td><input type="text" id="item_name[]" name="item_name[]"
+                                        <td><input type="hidden" id="item_name[]" name="item_name[]"
                                                    value="{{$record->item_name }}"
                                                    readonly>
+                                           {{$record->item_name }}
                                         </td>
 
                                         <td>

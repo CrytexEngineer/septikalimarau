@@ -8,6 +8,7 @@ use App\Models\Images;
 use App\Models\Report;
 use App\Models\Task;
 use App\Models\Unit;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -23,26 +24,35 @@ class ReportController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    private $report;
+    private $reports;
 
     public function json(Request $request)
     {
 
 
         if (Auth::user()->hasAnyRoles(['Petugas', 'Kanit'])) {
-            $this->report = DB::table('reports')->select('reports.*', 'tasks.task_name', 'units.unit_name')->join('units', 'reports.unit_id', '=', 'units.id')
+            $this->reports = DB::table('reports')->select('reports.*', 'tasks.task_name', 'units.unit_name')->join('units', 'reports.unit_id', '=', 'units.id')
                 ->join('tasks', 'reports.task_id', "=", "tasks.id")
                 ->where("reports.status_id", "=", $request->input("status_id"))
-                ->where('reports.unit_id', '=', Auth::user()->unit_id)->get()->all();
+                ->where('reports.unit_id', '=', Auth::user()->unit_id)
+                ->orderBy('reports.updated_at', 'desc')->get()->all();
+
         }
         if (Auth::user()->hasAnyRoles(['Admin', 'Kasi'])) {
-            $this->report = DB::table('reports')->select('reports.*', 'tasks.task_name', 'units.unit_name')->join('units', 'reports.unit_id', '=', 'units.id')
+            $this->reports = DB::table('reports')->select('reports.*', 'tasks.task_name', 'units.unit_name')->join('units', 'reports.unit_id', '=', 'units.id')
                 ->join('tasks', 'reports.task_id', "=", "tasks.id")
-                ->where("reports.status_id", "=", $request->input("status_id"))->get()->all();
+                ->where("reports.status_id", "=", $request->input("status_id"))
+                ->orderBy('reports.updated_at', 'desc')->get()->all();
+
         }
 
 
-        return DataTables::of($this->report)->addColumn('action', function ($row) {
+        foreach ($this->reports as $report) {
+            $report->created_at = Carbon::createFromFormat('Y-m-d H:i:s', $report->created_at)->isoFormat('dddd, D MMMM Y/HH:mm');
+            $report->updated_at = Carbon::createFromFormat('Y-m-d H:i:s', $report->updated_at)->isoFormat('dddd, D MMMM Y/HH:mm');
+        }
+
+        return DataTables::of($this->reports)->addColumn('action', function ($row) {
 
             $action = '<div class="float-sm-left"><a href="/report/' . $row->id . '" class="btn btn-primary" style="f"><i class="fas fa-list"></i> </a>';
 
@@ -162,6 +172,7 @@ class ReportController extends Controller
         ], $messeges);
 
         $task = new Report(['status_id' => 1, 'task_id' => $request->input('task_id'), 'unit_id' => $request->input('unit_id')]);
+
         $task->save();
         return redirect()->back()->withInput();
     }
@@ -197,13 +208,21 @@ class ReportController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $report = Report::where("id", "=", "$id");
-        if (!isset($report->get()->first()->petugas_id)
-            || !isset($report->get()->first()->kanit_id)
-            || !isset($report->get()->first()->kasi_id)) {
+
+        $report = Report::where("id", "=", "$id")->get()->first();
+
+
+        if (!isset($report->petugas_id)
+            || !isset($report->kanit_id)
+            || !isset($report->kasi_id)) {
             return redirect()->back()->withErrors('Pastikan data PETUGAS, KANIT, dan KASI telah diisi!');
         }
-        $report->update(["status_id" => $request->input('status_id')]);
+        var_dump($report->petugas_id);
+        $report->timestamps = false;
+        $report["status_id"] = $request->input('status_id');
+        $report->timestamps = false;
+
+        $report->save();
         return redirect()->back();
     }
 

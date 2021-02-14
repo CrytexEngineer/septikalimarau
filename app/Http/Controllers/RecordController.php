@@ -50,11 +50,14 @@ class RecordController extends Controller
 
         foreach ($request->input('report_id') as $key => $report_id) {
 
+
             if ($request->input('report_id')) {
+
                 $record = Record::updateOrCreate(
                     ['report_id' => $report_id, 'item_id' => $request->input('item_id')[$key]],
-                    ['kondisi_siang' => $request->input('kondisi_siang')[$key], 'kondisi_pagi' => $request->input('kondisi_pagi')[$key]]
+                    ['kondisi_siang' => ($request->input('kondisi_siang')[$key]), 'kondisi_pagi' => ($request->input('kondisi_pagi')[$key])]
                 );
+
 
                 $report = Report::updateOrCreate(
                     ['id' => $report_id,], ['keterangan' => $request->input('keterangan'),
@@ -67,7 +70,7 @@ class RecordController extends Controller
         }
 
 
-        return redirect()->back()->withInput();
+        return redirect()->back();
     }
 
     /**
@@ -78,7 +81,15 @@ class RecordController extends Controller
      */
     public function show($id)
     {
+        date_default_timezone_set("Asia/Kuala_Lumpur");
+        $currentTime = strtotime(date('Y-m-d H:i:s'));
+        $jamSiang = strtotime("12:00:00");
+
+
         $report = Report::where('id', '=', $id)->get();
+
+        //cek jam sekarang>12.00
+        $data['isJamSiang'] = $currentTime > $jamSiang;
         $data['report'] = $report;
         $data['records'] = Record::where('report_id', '=', $id)->join("items", "records.item_id", "=", "items.id")->get()->all();
         $data['selectedKasi'] = Report::where('reports.id', '=', $id)->join("users", "reports.kasi_id", "=", "users.id")->get()->first();
@@ -140,44 +151,43 @@ class RecordController extends Controller
     }
 
 
-    public function proses_upload(Request $request)
+    public function upload_lampiran(Request $request)
     {
         $this->validate($request, [
             'file' => 'required',
-            'keterangan' => 'required',
         ]);
 
-        // menyimpan data file yang diupload ke variabel $file
-        $file = $request->file('file');
-        $nama_file = time() . "_" . $file->getClientOriginalName();
-        Images::create(["report_id" => $request->get('report_id'), "image_path" => $nama_file, "keterangan" => $request->get('keterangan')]);
+        if ($files = $request->file('file')) {
 
-        // nama file
-        echo 'File Name: ' . $file->getClientOriginalName();
-        echo '<br>';
+            foreach ($files as $file) {
+                $nama_file = time() . "_" . $file->getClientOriginalName();
+                $tujuan_upload = 'gambar_harian';
+                // upload file
+                $file->move($tujuan_upload, $nama_file);
+                $images[] = $nama_file;
+                Images::create(["report_id" => $request->get('report_id'), "image_path" => $nama_file, "keterangan" => $request->get('keterangan')]);
 
-        // ekstensi file
-        echo 'File Extension: ' . $file->getClientOriginalExtension();
-        echo '<br>';
 
-        // real path
-        echo 'File Real Path: ' . $file->getRealPath();
-        echo '<br>';
+            }
+        }
 
-        // ukuran file
-        echo 'File Size: ' . $file->getSize();
-        echo '<br>';
-
-        // tipe mime
-        echo 'File Mime Type: ' . $file->getMimeType();
-
-        // isi dengan nama folder tempat kemana file diupload
-        $tujuan_upload = 'gambar_harian';
-
-        // upload file
-        $file->move($tujuan_upload, $nama_file);
         return redirect()->back()->withInput();
     }
+
+    public function update_lampiran(Request $request)
+    {
+        if ($imageIds = $request->input('image_id')) {
+            foreach ($imageIds as $key => $imageId) {
+                $image = Images::where('id', $imageId)->get()->first();
+                $image->keterangan = $request->input('keterangan')[$key];
+                $image->save();
+            }
+        };
+
+        return redirect()->back()->withInput();
+
+    }
+
 
     //hapus gambar
     public function hapus($id)

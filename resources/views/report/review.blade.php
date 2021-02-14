@@ -49,12 +49,12 @@
     @push('js')
 
         <script>
-      var table= $('#table_task').DataTable({
-    columnDefs: [
-            { width: '20%' }
-        ],
-        fixedColumns: true,
-   processing: true,
+           var table= $('#table_task').DataTable({
+           "order": [],
+           columnDefs: [
+            { width: '20%' }],
+                fixedColumns: true,
+                processing: true,
                 serverSide: false,
                   ajax: {
                 "url": '/report/json',

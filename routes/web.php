@@ -59,9 +59,10 @@ Route::middleware('can:user')->group(function () {
     Route::get('/record/json', '\App\Http\Controllers\RecordController@json');
     Route::resource('/record', 'App\Http\Controllers\RecordController');
 
-    Route::get('/upload', 'App\Http\Controllers\UploadController@upload');
-    Route::post('/upload/proses', 'App\Http\Controllers\RecordController@proses_upload');
-    Route::get('/upload/hapus/{id}', 'App\Http\Controllers\RecordController@hapus');
+
+    Route::post('/lampiran/upload', 'App\Http\Controllers\RecordController@upload_lampiran');
+    Route::delete('/lampiran/hapus/{id}', 'App\Http\Controllers\RecordController@hapus');
+    Route::patch('/lampiran/update', 'App\Http\Controllers\RecordController@update_lampiran');
 
     Route::get('/taskquery', 'App\Http\Controllers\FilterHelperController@taskQuery')->name("filter.taskQuery");
 });

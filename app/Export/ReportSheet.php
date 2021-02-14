@@ -83,6 +83,7 @@ class ReportSheet implements WithEvents, WithStrictNullComparison, ShouldAutoSiz
                 $sheet->setCellValue('A6', "Tanggal:" . Carbon::createFromFormat('Y-m-d H:i:s', $this->report['created_at'])->isoFormat('dddd, D MMMM Y'));
                 $sheet->setCellValue('B7', $this->title);
                 $sheet->setCellValue('A7', "NO");
+                $sheet->setCellValue('E7', $this->report->keterangan);
                 $sheet->setCellValue('C7', "KONDISI PAGI");
                 $sheet->setCellValue('D7', "KONDISI SIANG");
                 $sheet->setCellValue('C8', "JAM:" . date("h:i", strtotime($this->report['created_at'])));

@@ -58,6 +58,7 @@
                             <p class="card-category"></p>
                         </div>
                         <div class="card-body">
+                            <button id="button">Row count</button>
                             <div class="table-responsive">
                                 <table class="display  compact" id="table_task">
                                     <thead class=" text-primary">
@@ -72,6 +73,9 @@
                                     </th>
                                     <th>
                                         Dibuat
+                                    </th>
+                                    <th>
+                                        Diperbaharui
                                     </th>
                                     <th>
                                         Aksi
@@ -96,8 +100,9 @@
       { "width": "500px", "targets": 4 },
 
     ],
+            "order": [],
         fixedColumns: true,
-   processing: true,
+                processing: true,
                 serverSide: false,
                   ajax: {
                 "url": '/report/json',
@@ -110,7 +115,8 @@
                     {data: 'id', name: 'id'},
                      {data: 'unit_name', name: 'unit_name'},
                     {data: 'task_name', name: 'task_name'},
-                    {data: 'updated_at', name: 'updated_at'},
+                    {data: 'created_at', name: 'created_at'},
+                     {data: 'updated_at', name: 'updated_at'},
                 {data: 'action', name: 'action'}
 
             ],
@@ -119,6 +125,15 @@
 
 
           $(document).ready(function () {
+
+ $('#button').click( function () {
+        console.log( table.row().data());
+    } );
+
+                  $('#table_task tbody').on( 'click', 'tr', function () {
+                             $(this).toggleClass('selected');
+                  } );
+
 
                  $('#unit_id').on('change',function(e) {
                     table.ajax.reload();
@@ -141,6 +156,8 @@
                 });
 
             });
+
+
 
 
 

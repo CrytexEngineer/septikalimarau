@@ -85,7 +85,7 @@
                     <div class="form-group row mb-0">
                         <div class="col-md-6 offset-md-3">
                             {{Form::submit('Simpan Data',['class'=>'btn btn-primary'])}}
-                            <a href="/manajemen_akun/pegawai" class="btn btn-primary">Kembali</a>
+                            <a href="/user" class="btn btn-primary">Kembali</a>
                         </div>
                     </div>
             </div>
@@ -173,8 +173,8 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-3">
-                                {{Form::submit('Simpan Data',['class'=>'btn btn-primary'])}}
-                                <a href="/manajemen_akun/pegawai" class="btn btn-primary">Kembali</a>
+                                {{Form::submit('Simpank Data',['class'=>'btn btn-primary'])}}
+                                <a href="/user" class="btn btn-primary">Kembali</a>
                             </div>
                         </div>
                     </div>
