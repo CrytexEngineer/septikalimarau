@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="824dbded-0227-432a-97fe-96ce5d4582bd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/record/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/record/create.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/report/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/report/index.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -278,6 +277,9 @@
       <workItem from="1613179313982" duration="1080000" />
       <workItem from="1613220728800" duration="14922000" />
       <workItem from="1613270860028" duration="19614000" />
+      <workItem from="1613360554572" duration="252000" />
+      <workItem from="1613400054254" duration="3950000" />
+      <workItem from="1613439492159" duration="613000" />
     </task>
     <servers />
   </component>
@@ -324,12 +326,12 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="391" y="191" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1612147803117" />
-    <state x="675" y="0" width="698" height="735" key="dock-window-1" timestamp="1613274315492">
+    <state x="676" y="0" width="697" height="735" key="dock-window-1" timestamp="1613439537960">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="-808" y="0" width="817" height="869" key="dock-window-1/0.0.1366.728/-1600.0.1600.860@-1600.0.1600.860" timestamp="1613179806318" />
-    <state x="675" y="0" width="698" height="735" key="dock-window-1/0.0.1366.728/-1600.0.1600.860@0.0.1366.728" timestamp="1613274315492" />
-    <state x="676" y="0" width="697" height="735" key="dock-window-1/0.0.1366.728@0.0.1366.728" timestamp="1613054756698" />
+    <state x="676" y="0" width="697" height="735" key="dock-window-1/0.0.1366.728/-1600.0.1600.860@0.0.1366.728" timestamp="1613404309258" />
+    <state x="676" y="0" width="697" height="735" key="dock-window-1/0.0.1366.728@0.0.1366.728" timestamp="1613439537960" />
     <state x="390" y="125" width="607" height="526" key="find.popup" timestamp="1613288351526">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -376,11 +378,6 @@
           <url>file://$PROJECT_DIR$/app/Export/ReportSheet.php</url>
           <line>55</line>
           <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/resources/views/report/index.blade.php</url>
-          <line>134</line>
-          <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/resources/views/record/create.blade.php</url>

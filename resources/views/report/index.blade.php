@@ -58,7 +58,7 @@
                             <p class="card-category"></p>
                         </div>
                         <div class="card-body">
-                            <button id="button">Row count</button>
+{{--                            <button id="button">Row count</button>--}}
                             <div class="table-responsive">
                                 <table class="display  compact" id="table_task">
                                     <thead class=" text-primary">
@@ -94,72 +94,101 @@
     @push('js')
 
         <script>
-    var table= $('#table_task').DataTable({
- "columnDefs": [
+         var table = $('#table_task').DataTable({
+            "columnDefs": [
 
-      { "width": "500px", "targets": 4 },
-
-    ],
-            "order": [],
-        fixedColumns: true,
-                processing: true,
-                serverSide: false,
-                  ajax: {
-                "url": '/report/json',
-                "data": function ( d ) {
-                    d.status_id = "1";
-                    console.log(d);
-                }},
-
-                columns: [
-                    {data: 'id', name: 'id'},
-                     {data: 'unit_name', name: 'unit_name'},
-                    {data: 'task_name', name: 'task_name'},
-                    {data: 'created_at', name: 'created_at'},
-                     {data: 'updated_at', name: 'updated_at'},
-                {data: 'action', name: 'action'}
+                {
+                    "width": "500px",
+                    "targets": 4
+                },
 
             ],
-});
+            "order": [],
+            fixedColumns: true,
+            processing: true,
+            serverSide: false,
+            ajax: {
+                "url": '/report/json',
+                "data": function(d) {
+                    d.status_id = "1";
+                    console.log(d);
+                }
+            },
+
+            columns: [{
+                    data: 'id',
+                    name: 'id'
+                },
+                {
+                    data: 'unit_name',
+                    name: 'unit_name'
+                },
+                {
+                    data: 'task_name',
+                    name: 'task_name'
+                },
+                {
+                    data: 'created_at',
+                    name: 'created_at'
+                },
+                {
+                    data: 'updated_at',
+                    name: 'updated_at'
+                },
+                {
+                    data: 'action',
+                    name: 'action'
+                }
+
+            ],
+        });
+
+
+        $('#table_task tbody').on('click', 'tr', function() {
+            $(this).toggleClass('selected');
+        });
+
+        $('#button').click(function() {
+            alert(table.rows('.selected').data().length + ' row(s) selected');
+            console.log(table.rows('selected').data());
+            let _token   = $('meta[name="csrf-token"]').attr('content');
+
+      $.ajax({
+        url: "/ajax-request",
+        type:"POST",
+        data:{
+{{--          table.rows('selected').data()--}}
+          _token: _token
+        }});
+        });
 
 
 
-          $(document).ready(function () {
-
- $('#button').click( function () {
-        console.log( table.row().data()); } );
-
-                  $('#table_task tbody').on( 'click', 'tr', function () {
-                             $(this).toggleClass('selected');
-                  } );
+        $(document).ready(function() {
 
 
-                 $('#unit_id').on('change',function(e) {
-                    table.ajax.reload();
+
+            $('#unit_id').on('change', function(e) {
+                table.ajax.reload();
 
 
-                 var d = e.target.value;
-                        $.ajax({
-                       url:"{{ route('filter.taskQuery') }}",
-                       type:"GET",
-                       data: {
-                           unit_id: d
-                        },
-                       success:function (data) {
-                          $('#task_id').empty();
-                          $.each(data.task,function(index,subcategory){
-                          $('#task_id').append('<option value="'+subcategory.id+'">'+subcategory.task_name +'</option>');
-                             })
-                       }
-                   })
-                });
-
+                var d = e.target.value;
+                $.ajax({
+                    url: "{{ route('filter.taskQuery') }}",
+                    type: "GET",
+                    data: {
+                        unit_id: d
+                    },
+                    success: function(data) {
+                        $('#task_id').empty();
+                        $.each(data.task, function(index, subcategory) {
+                            $('#task_id').append('<option value="' + subcategory.id + '">' + subcategory.task_name + '</option>');
+                        })
+                    }
+                })
             });
 
-
-
-
-
+        });
 
 
 
