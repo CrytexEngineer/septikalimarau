@@ -18,7 +18,7 @@
     <link rel="stylesheet" type="text/css"
           href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"/>
 {{--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">--}}
-    <!-- CSS Files -->
+<!-- CSS Files -->
     <link href="{{ asset('material') }}/css/material-dashboard.css?v=2.1.1" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
 
@@ -26,6 +26,7 @@
     <link href="{{ asset('material') }}/demo/demo.css" rel="stylesheet"/>
 </head>
 <body class="{{ $class ?? '' }}">
+
 @auth()
     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
         @csrf
@@ -77,42 +78,42 @@
                         <img src="{{ asset('material') }}/img/sidebar-4.jpg" alt="">
                     </a>
                 </li>
-{{--                <li class="button-container">--}}
-{{--                    <a href="https://www.creative-tim.com/product/material-dashboard-laravel" target="_blank"--}}
-{{--                       class="btn btn-primary btn-block">Free Download</a>--}}
-{{--                </li>--}}
-                <!-- <li class="header-title">Want more components?</li>
+            {{--                <li class="button-container">--}}
+            {{--                    <a href="https://www.creative-tim.com/product/material-dashboard-laravel" target="_blank"--}}
+            {{--                       class="btn btn-primary btn-block">Free Download</a>--}}
+            {{--                </li>--}}
+            <!-- <li class="header-title">Want more components?</li>
                     <li class="button-container">
                         <a href="https://www.creative-tim.com/product/material-dashboard-pro" target="_blank" class="btn btn-warning btn-block">
                           Get the pro version
                         </a>
                     </li> -->
-{{--                <li class="button-container">--}}
-{{--                    <a href="https://material-dashboard-laravel.creative-tim.com/docs/getting-started/laravel-setup.html"--}}
-{{--                       target="_blank" class="btn btn-default btn-block">--}}
-{{--                        View Documentation--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-{{--                <li class="button-container">--}}
-{{--                    <a href="https://www.creative-tim.com/product/material-dashboard-pro-laravel" target="_blank"--}}
-{{--                       class="btn btn-danger btn-block btn-round">--}}
-{{--                        Upgrade to PRO--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-{{--                <li class="button-container github-star">--}}
-{{--                    <a class="github-button" href="https://github.com/creativetimofficial/material-dashboard-laravel"--}}
-{{--                       data-icon="octicon-star" data-size="large" data-show-count="true"--}}
-{{--                       aria-label="Star ntkme/github-buttons on GitHub">Star</a>--}}
-{{--                </li>--}}
-{{--                <li class="header-title">Thank you for 95 shares!</li>--}}
-{{--                <li class="button-container text-center">--}}
-{{--                    <button id="twitter" class="btn btn-round btn-twitter"><i class="fa fa-twitter"></i> &middot; 45--}}
-{{--                    </button>--}}
-{{--                    <button id="facebook" class="btn btn-round btn-facebook"><i class="fa fa-facebook-f"></i> &middot;--}}
-{{--                        50--}}
-{{--                    </button>--}}
-                    <br>
-                    <br>
+                {{--                <li class="button-container">--}}
+                {{--                    <a href="https://material-dashboard-laravel.creative-tim.com/docs/getting-started/laravel-setup.html"--}}
+                {{--                       target="_blank" class="btn btn-default btn-block">--}}
+                {{--                        View Documentation--}}
+                {{--                    </a>--}}
+                {{--                </li>--}}
+                {{--                <li class="button-container">--}}
+                {{--                    <a href="https://www.creative-tim.com/product/material-dashboard-pro-laravel" target="_blank"--}}
+                {{--                       class="btn btn-danger btn-block btn-round">--}}
+                {{--                        Upgrade to PRO--}}
+                {{--                    </a>--}}
+                {{--                </li>--}}
+                {{--                <li class="button-container github-star">--}}
+                {{--                    <a class="github-button" href="https://github.com/creativetimofficial/material-dashboard-laravel"--}}
+                {{--                       data-icon="octicon-star" data-size="large" data-show-count="true"--}}
+                {{--                       aria-label="Star ntkme/github-buttons on GitHub">Star</a>--}}
+                {{--                </li>--}}
+                {{--                <li class="header-title">Thank you for 95 shares!</li>--}}
+                {{--                <li class="button-container text-center">--}}
+                {{--                    <button id="twitter" class="btn btn-round btn-twitter"><i class="fa fa-twitter"></i> &middot; 45--}}
+                {{--                    </button>--}}
+                {{--                    <button id="facebook" class="btn btn-round btn-facebook"><i class="fa fa-facebook-f"></i> &middot;--}}
+                {{--                        50--}}
+                {{--                    </button>--}}
+                <br>
+                <br>
                 </li>
             </ul>
         </div>
@@ -162,6 +163,12 @@
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
 <script src="{{ asset('material') }}/demo/demo.js"></script>
 <script src="{{ asset('material') }}/js/settings.js"></script>
+
+<script type="text/javascript">
+    function zoom() {
+        document.body.style.zoom = "80%"
+    }
+</script>
 @stack('js')
 </body>
 </html>

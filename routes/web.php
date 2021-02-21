@@ -54,6 +54,8 @@ Route::middleware('can:user')->group(function () {
     Route::get('/report/archive', '\App\Http\Controllers\ReportController@archive')->name("report.archive");
     Route::get('/report/review', '\App\Http\Controllers\ReportController@review')->name("report.review");
     Route::get('/report/json', '\App\Http\Controllers\ReportController@json');
+    Route::patch('/report/mass_update','\App\Http\Controllers\ReportController@mass_update')->name("report.mass_update");
+    Route::delete('/report/mass_delete','\App\Http\Controllers\ReportController@mass_delete')->name("report.mass_delete");
     Route::resource('/report', 'App\Http\Controllers\ReportController');
 
     Route::get('/record/json', '\App\Http\Controllers\RecordController@json');

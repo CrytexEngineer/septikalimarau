@@ -16,7 +16,7 @@
                         <h4><span class="badge badge-warning"
                                   style="margin-right: 8px">{{$task->get()->first()['task_name']}}</span></h4>
                         <h4><span class="badge badge-warning"
-                                  style="margin-right: 8px">{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', Carbon\Carbon::now())->isoFormat('dddd, D MMMM Y')}}</span>
+                                  style="margin-right: 8px">{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $report->first()['created_at'])->isoFormat('dddd, D MMMM Y')}}</span>
                         </h4>
                         <h4><span class="badge badge-warning" style="margin-right: 8px">
                         Pagi:{{date("H:i", strtotime($report->first()['created_at']))}}</span></h4>
@@ -216,7 +216,6 @@
         </div>
     </div>
 
-    </div>
 
 
 
