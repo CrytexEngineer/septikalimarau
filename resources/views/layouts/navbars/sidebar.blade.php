@@ -31,6 +31,12 @@
                                 <span class="sidebar-normal">{{ __('Laporan Aktif') }} </span>
                             </a>
                         </li>
+                        <li class="nav-item{{ $activePage == 'Reject' ? ' active' : '' }}">
+                            <a class="nav-link" href="{{ route('report.reject') }}">
+                                <span class="sidebar-mini">LT</span>
+                                <span class="sidebar-normal">{{ __('Laporan Ditolak') }} </span>
+                            </a>
+                        </li>
                         <li class="nav-item{{ $activePage == 'Submitted' ? ' active' : '' }}">
                             <a class="nav-link" href="{{ route('report.review') }}">
                                 <span class="sidebar-mini">LD</span>

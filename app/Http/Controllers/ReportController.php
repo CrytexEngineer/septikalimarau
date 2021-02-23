@@ -30,19 +30,35 @@ class ReportController extends Controller
     public function json(Request $request)
     {
 
-
         if (Auth::user()->hasAnyRoles(['Petugas', 'Kanit'])) {
-            $this->reports = DB::table('reports')->select('reports.*', 'tasks.task_name', 'units.unit_name')->join('units', 'reports.unit_id', '=', 'units.id')
+            $this->reports = DB::table('reports')->select('reports.*',
+                'tasks.task_name',
+                'units.unit_name',
+                'users.name',
+                DB::raw('COUNT(images.id) as jumlahGambar'))
+                ->join('units', 'reports.unit_id', '=', 'units.id')
                 ->join('tasks', 'reports.task_id', "=", "tasks.id")
+                ->leftJoin('users', 'users.id', '=', 'reports.petugas_id')
+                ->leftjoin('images', 'reports.id', '=', 'images.report_id')
                 ->where("reports.status_id", "=", $request->input("status_id"))
                 ->where('reports.unit_id', '=', Auth::user()->unit_id)
+                ->groupBy('reports.id')
                 ->orderBy('reports.updated_at', 'desc')->get()->all();
 
         }
         if (Auth::user()->hasAnyRoles(['Admin', 'Kasi'])) {
-            $this->reports = DB::table('reports')->select('reports.*', 'tasks.task_name', 'units.unit_name')->join('units', 'reports.unit_id', '=', 'units.id')
+            $this->reports = DB::table('reports')->select('reports.*',
+                'tasks.task_name',
+                'units.unit_name',
+                'users.name',
+                DB::raw('COUNT(images.report_id) as jumlahGambar'))
+                ->leftJoin('units', 'reports.unit_id', '=', 'units.id')
                 ->join('tasks', 'reports.task_id', "=", "tasks.id")
+                ->leftJoin('users', 'users.id', '=', 'reports.petugas_id')
+                ->leftJoin('images', 'reports.id', '=', 'images.report_id')
                 ->where("reports.status_id", "=", $request->input("status_id"))
+//                ->where('reports.unit_id', '=', $request->input("unit_id"))
+                ->groupBy('reports.id')
                 ->orderBy('reports.updated_at', 'desc')->get()->all();
 
         }
@@ -57,7 +73,7 @@ class ReportController extends Controller
 
             $action = '<div class="float-sm-left"><a href="/report/' . $row->id . '" class="btn btn-primary" style="f"><i class="fas fa-list"></i> </a>';
 
-            if ($row->status_id == 1) {
+            if ($row->status_id == 1 || $row->status_id == 6) {
                 $action .= \Form::open(['url' => 'report/' . $row->id, 'method' => 'patch', 'style' => 'float:left margin_right:8px']);
                 $action .= "<input type='hidden' id='status_id' name='status_id' value=2>";
                 $action .= "<button type='submit'class='btn btn-primary btn-block'><i class='fas fa-key'></i></button>";
@@ -75,7 +91,7 @@ class ReportController extends Controller
                     $action .= \Form::close();
 
                     $action .= \Form::open(['url' => 'report/' . $row->id, 'method' => 'patch', 'style' => 'float:right']);
-                    $action .= "<input type='hidden' id='status_id' name='status_id' value=1>";
+                    $action .= "<input type='hidden' id='status_id' name='status_id' value=6>";
                     $action .= "<button type='submit'class='btn btn-primary  btn-block'><i class='fas fa-times-circle'></i> </button>";
                     $action .= \Form::close();
 
@@ -125,6 +141,23 @@ class ReportController extends Controller
             $data['task'] = Task::all()->pluck('task_name', 'id');
             $data['status'] = "Approved";
             return view('report.archive', $data);
+        }
+
+    }
+
+    public function reject()
+    {
+        if (Auth::user()->hasAnyRoles(['Petugas', 'Kanit'])) {
+            $data['unit'] = Unit::where('id', '=', Auth::user()->unit_id)->pluck('unit_name', 'id');
+            $data['task'] = Task::where('tasks.unit_id', '=', Auth::user()->unit_id)->pluck('task_name', 'id');
+            $data['status'] = "Reject";
+            return view('report.reject', $data);
+        }
+        if (Auth::user()->hasAnyRoles(['Admin', 'Kasi'])) {
+            $data['unit'] = Unit::all()->pluck('unit_name', 'id');
+            $data['task'] = Task::all()->pluck('task_name', 'id');
+            $data['status'] = "Reject";
+            return view('report.reject', $data);
         }
 
     }
@@ -236,6 +269,10 @@ class ReportController extends Controller
                         return response()->json(['statusCode' => '201', 'messege' => "Eror Laporan dengan ID " . $report['id'] . " Belum Lengkap
                     dan " . $counter . " Laporan Berhasil Di Arsip"]);
                     }
+                    if ($request->input('status_id') == 6) {
+                        return response()->json(['statusCode' => '201', 'messege' => "Eror Laporan dengan ID " . $report['id'] . " Belum Lengkap
+                    dan " . $counter . " Laporan Berhasil Di Tolak"]);
+                    }
                 }
             }
 
@@ -256,6 +293,9 @@ class ReportController extends Controller
         }
         if ($request->input('status_id') == 5) {
             return response()->json(['statusCode' => '200', 'messege' => $counter . " Laporan Berhasil Di Arsip"]);
+        }
+        if ($request->input('status_id') == 6) {
+            return response()->json(['statusCode' => '200', 'messege' => $counter . " Laporan Berhasil Di Tolak"]);
         }
     }
 

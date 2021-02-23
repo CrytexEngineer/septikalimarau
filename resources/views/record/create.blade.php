@@ -159,7 +159,7 @@
                 </div>
 
                 @if($report->first()->status_id!=5)
-                    {{Form::submit('Simpan Data',['class'=>'btn btn-primary'])}}
+                    {{Form::submit('Simpan ',['class'=>'btn btn-primary'])}}
                 @endif
 
                 {{Form::close()}}
@@ -210,8 +210,9 @@
                             </tbody>
                         </table>
                     </div>
-                    <input type="submit" value="Simpan Perubahan" class="btn btn-primary">
+                    <input type="submit" value="Simpan " class="btn btn-primary">
                 </form>
+                    <a href="/report"><button class="btn btn-info">Kembali</button></a>
             </div>
         </div>
     </div>
@@ -225,18 +226,7 @@
 $(document).ready(function() {
   $('#table_form').DataTable();
       $('#table_picture').DataTable();
-
-
             } );
-
-
-
-
-
-
-
-
-
         </script>
     @endpush
 @endsection

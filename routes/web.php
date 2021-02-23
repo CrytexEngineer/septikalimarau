@@ -53,6 +53,7 @@ Route::middleware('can:user')->group(function () {
     Route::get('/report/export/{report_id}', '\App\Http\Controllers\ReportController@saveExport')->name("report.export");
     Route::get('/report/archive', '\App\Http\Controllers\ReportController@archive')->name("report.archive");
     Route::get('/report/review', '\App\Http\Controllers\ReportController@review')->name("report.review");
+    Route::get('/report/reject', '\App\Http\Controllers\ReportController@reject')->name("report.reject");
     Route::get('/report/json', '\App\Http\Controllers\ReportController@json');
     Route::patch('/report/mass_update','\App\Http\Controllers\ReportController@mass_update')->name("report.mass_update");
     Route::delete('/report/mass_delete','\App\Http\Controllers\ReportController@mass_delete')->name("report.mass_delete");

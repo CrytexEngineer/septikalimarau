@@ -79,6 +79,12 @@ class RecordController extends Controller
      * @param \App\Models\Record $record
      * @return \Illuminate\Http\Response
      */
+
+    public function json(Request $request){
+        $records = Record::where('report_id', '=', $request->input('id'))->join("items", "records.item_id", "=", "items.id")->get()->all();
+        return response()->json(['statusCode' => '200', 'data' => $records]);
+    }
+
     public function show($id)
     {
         date_default_timezone_set("Asia/Kuala_Lumpur");

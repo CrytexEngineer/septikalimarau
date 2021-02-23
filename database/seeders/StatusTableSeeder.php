@@ -33,7 +33,10 @@ class StatusTableSeeder extends Seeder {
             'id' => '5',
             'status_name' => 'Approved',
         ]);
-
+        DB::table('status')->insert([
+            'id' => '6',
+            'status_name' => 'Rejected',
+        ]);
     }
 
 }

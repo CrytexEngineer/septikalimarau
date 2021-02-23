@@ -2,12 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="824dbded-0227-432a-97fe-96ce5d4582bd" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/public/css/datatable.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/report/reject.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/RecordController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/RecordController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ReportController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ReportController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/database.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/database.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/StatusTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/StatusTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/resources/css/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/navbars/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/navbars/sidebar.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/record/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/record/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/record/view.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/record/view.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/report/archive.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/report/archive.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/report/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/report/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/report/review.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/report/review.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
@@ -179,16 +185,17 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../simbandara" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.language" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/report" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\Arsip Kerja\septikalimarau\resources\views\report" />
+      <recent name="F:\Arsip Kerja\septikalimarau\public\css" />
       <recent name="F:\Arsip Kerja\simbandara\resources\views\record" />
       <recent name="F:\Arsip Kerja\simbandara\app\Http\Controllers\Auth" />
       <recent name="F:\Arsip Kerja\simbandara\resources\views\report" />
-      <recent name="F:\Arsip Kerja\simbandara\resources\views\users" />
-      <recent name="F:\Arsip Kerja\simbandara\database\seeders" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="F:\Arsip Kerja\simbandara\app\Http\Controllers" />
@@ -291,9 +298,18 @@
       <workItem from="1613489782937" duration="6448000" />
       <workItem from="1613533024417" duration="1211000" />
       <workItem from="1613840478839" duration="6325000" />
-      <workItem from="1613868283229" duration="7162000" />
+      <workItem from="1613868283229" duration="27218000" />
+      <workItem from="1613919520012" duration="7338000" />
+      <workItem from="1613966282950" duration="994000" />
+      <workItem from="1613973362582" duration="1207000" />
+      <workItem from="1614048352773" duration="1053000" />
+      <workItem from="1614063837631" duration="9211000" />
+      <workItem from="1614089742617" duration="8989000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
     <state x="137" y="21" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1607403915325">
@@ -325,39 +341,41 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="517" y="295" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1612147862924" />
-    <state x="259" y="12" key="SettingsEditor" timestamp="1613235444748">
+    <state x="259" y="12" key="SettingsEditor" timestamp="1613919491395">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="-1297" y="75" key="SettingsEditor/0.0.1366.728/-1600.0.1600.860@-1600.0.1600.860" timestamp="1613179349208" />
     <state x="259" y="12" key="SettingsEditor/0.0.1366.728/-1600.0.1600.860@0.0.1366.728" timestamp="1613235444748" />
+    <state x="259" y="12" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1613919491395" />
     <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1610869436832">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1610869436832" />
-    <state x="391" y="191" key="com.intellij.ide.util.TipDialog" timestamp="1613868283100">
+    <state x="391" y="191" key="com.intellij.ide.util.TipDialog" timestamp="1614090188284">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="391" y="191" key="com.intellij.ide.util.TipDialog/0.0.1366.728/-1600.0.1600.860@0.0.1366.728" timestamp="1613868283100" />
-    <state x="391" y="191" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1613840482910" />
-    <state x="676" y="0" width="697" height="735" key="dock-window-1" timestamp="1613442632140">
+    <state x="391" y="191" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1614090188284" />
+    <state x="-7" y="0" width="697" height="735" maximized="true" key="dock-window-1" timestamp="1614119868392">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="-808" y="0" width="817" height="869" key="dock-window-1/0.0.1366.728/-1600.0.1600.860@-1600.0.1600.860" timestamp="1613179806318" />
     <state x="676" y="0" width="697" height="735" key="dock-window-1/0.0.1366.728/-1600.0.1600.860@0.0.1366.728" timestamp="1613404309258" />
-    <state x="676" y="0" width="697" height="735" key="dock-window-1/0.0.1366.728@0.0.1366.728" timestamp="1613442632140" />
+    <state x="-7" y="0" width="697" height="735" maximized="true" key="dock-window-1/0.0.1366.728@0.0.1366.728" timestamp="1614119868392" />
     <state x="390" y="125" width="607" height="526" key="find.popup" timestamp="1613288351526">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="390" y="125" width="607" height="526" key="find.popup/0.0.1366.728/-1600.0.1600.860@0.0.1366.728" timestamp="1613288351526" />
     <state x="390" y="125" width="586" height="478" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1612750091225" />
-    <state x="339" y="162" key="run.anything.popup" timestamp="1613840952878">
+    <state x="339" y="162" key="run.anything.popup" timestamp="1613946904739">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1613840952878" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1612083272367">
+    <state x="339" y="162" key="run.anything.popup/0.0.1366.728/-1600.0.1600.860@0.0.1366.728" timestamp="1613900962641" />
+    <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1613946904739" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1614091161195">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1612083272367" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1614091161195" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -374,7 +392,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/ReportController.php</url>
-          <line>76</line>
+          <line>92</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
@@ -396,6 +414,11 @@
           <url>file://$PROJECT_DIR$/resources/views/record/create.blade.php</url>
           <line>182</line>
           <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/resources/views/report/review.blade.php</url>
+          <line>12</line>
+          <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
