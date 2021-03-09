@@ -3,12 +3,8 @@
 
     <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
     <div class="content">
-        <div class="container-fluid">
-            <div class="row ">
-
+            <div class="row">
                 <div class="col-md-12">
-
-
                     @include('validation_error')
                     {{ Form::open(['url'=>'report'])}}
 
@@ -55,20 +51,22 @@
                     <div class="card">
                         <div class="card-header card-header-primary">
                             <h4 class="card-title ">Laporan Harian Aktif</h4>
-                            <p class="card-category"></p>
+                            <p class="card-category">Filter</p>
+                            <div class="row">
+                                @can('management')
+                                    <div class="col">
+                                        {{ Form::select('filter_unit_id',$unit,null,['class'=>'form-control','placeholder'=>'Pilih Unit','id'=>'filter_unit_id'])}}
+                                    </div>
+                                @endcan('management')
+                                <div class="col">
+                                    {{ Form::select('filter_tanggal',$created_at,null,['class'=>'form-control','id'=>'filter_tanggal'])}}
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
                             <button id="buttonSubmit" name="buttonSubmit">Submit Masal</button>
                             <button id="buttonDelete" name="buttonDelete">Hapus Masal</button>
                             <div class="table-responsive">
-{{--                                <div class="row">--}}
-{{--                                    <div class="col">--}}
-{{--                                        {{ Form::select('unit_id',$unit,null,['class'=>'form-control','placeholder'=>'Pilih Unit','id'=>'unit_id'])}}--}}
-{{--                                    </div>--}}
-{{--                                    <div class="col">--}}
-{{--                                        {{ Form::select('unit_id',$unit,null,['class'=>'form-control','placeholder'=>'Pilih Tanggal ','id'=>'unit_id'])}}--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
                                 <table class="display  compact" id="table_task">
                                     <thead class=" text-primary">
                                     <th>Detail</th>
@@ -99,7 +97,7 @@
 
             </div>
         </div>
-    </div>
+
 
     @push('js')
 
@@ -123,7 +121,8 @@
                     "url": '/report/json',
                     "data": function (d) {
                         d.status_id = "1";
-                        d.unit_id = $('#unit_id').val();
+                        d.unit_id = $('#filter_unit_id').val();
+                        d.filter_tanggal = $('#filter_tanggal option:selected').text();
                     },
 
                     error: function (result) {
@@ -254,7 +253,7 @@
 
             $(document).ready(function () {
                 var openRows = [];
-
+                $("#filter_unit_id").val($("#filter_unit_id option:last").val());
 
                 function closeOpenedRows(table, selectedRow) {
                     $.each(openRows, function (index, openRow) {
@@ -314,8 +313,6 @@
                         console.log(result);
                     });
 
-                    console.log($("#unit_id").val());
-
                     var d = e.target.value;
                     $.ajax({
                         url: "{{ route('filter.taskQuery') }}",
@@ -334,8 +331,19 @@
 
             });
 
+            $('#filter_unit_id').on('change', function (e) {
+                table.ajax.reload(function (result) {
+                });
+            });
+
+            $('#filter_tanggal').on('change', function (e) {
+                table.ajax.reload(function (result) {
+                });
+            });
+
             function format(d, data) {
-                var petugas = (d.name) ? d.name : ' Tidak Diisi'
+                var petugas_pagi = (d.petugas_pagi) ? d.petugas_pagi : ' Tidak Diisi'
+                var petugas_siang = (d.petugas_siang) ? d.petugas_siang : ' Tidak Diisi'
                 var keterangan = (d.keterangan) ? d.keterangan : ' Tidak Diisi'
                 var jumlahGambar = d.jumlahGambar
 
@@ -343,14 +351,16 @@
                 var layoutHeader = '<table id="table_inner_header" class="display" style="width: 100%">' +
                     '  <thead>' +
                     '    <tr>' +
-                    '      <th>Petugas</th>' +
+                    '      <th>Petugas Pagi</th>' +
+                    '      <th>Petugas Siang</th>' +
                     '      <th>Jumlah Gambar</th>' +
                     '      <th>Keterangan</th>' +
                     '    </tr>' +
                     '  </thead>' +
                     '  <tbody>' +
                     '    <tr>' +
-                    '      <td>' + petugas + '</td>' +
+                    '      <td>' + petugas_pagi + '</td>' +
+                    '      <td>' + petugas_siang + '</td>' +
                     '      <td>' + jumlahGambar + '</td>' +
                     '      <td>' + keterangan + '</td>' +
                     '    </tr>' +

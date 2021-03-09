@@ -1,8 +1,6 @@
 @extends('layouts.app', ['activePage' => $status, 'titlePage' => __('Ceklist Laporan Harian')])
 @section('content')
-
     <div class="content">
-
         <meta name="csrf-token" content="{{ csrf_token() }}">
         @include('validation_error')
         {{ Form::model($records,['url'=>'record'])}}
@@ -123,7 +121,7 @@
                                              'class' => 'form-control', 'hidden'
                                              ))}}
                                         </td>
-                                        </td>
+
                                         <td>
                                             {{ Form::select('kondisi_siang[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), $record->kondisi_siang, array(
                                                 'class' => 'form-control'
@@ -141,8 +139,13 @@
 
                 <div class="row">
                     <div class="col-sm-3">
-                        <label>Petugas</label>
-                        {{ Form::select('petugas_id',$petugas,$selectedPetugas?$selectedPetugas->id:null,['class'=>'form-control','placeholder'=>'Pilih Petugas','id'=>'id'])}}
+                        <label>Petugas Pagi</label>
+
+                        {{ Form::select('petugas_pagi_id',$petugas,$selectedPetugasPagi?$selectedPetugasPagi->id:null,['class'=>'form-control','placeholder'=>'Pilih Petugas','id'=>'id'])}}
+                    </div>
+                    <div class="col-sm-3">
+                        <label>Petugas Siang</label>
+                        {{ Form::select('petugas_siang_id',$petugas,$selectedPetugasSiang?$selectedPetugasSiang->id:null,['class'=>'form-control','placeholder'=>'Pilih Kanit','id'=>'id'])}}
                     </div>
                     <div class="col-sm-3">
                         <label>Kanit</label>{{ Form::select('kanit_id',$kanit,$selectedKanit?$selectedKanit->id:null,['class'=>'form-control','placeholder'=>'Pilih Kanit','id'=>'id'])}}
@@ -212,7 +215,19 @@
                     </div>
                     <input type="submit" value="Simpan " class="btn btn-primary">
                 </form>
-                    <a href="/report"><button class="btn btn-info">Kembali</button></a>
+                @if($status=='Active')
+                    <a href="/report">
+                        <button class="btn btn-info">Kembali</button>
+                    </a>
+                @elseif($status=='Rejected')
+                    <a href="/report/reject">
+                        <button class="btn btn-info">Kembali</button>
+                    </a>
+                @elseif($status=='Submitted')
+                    <a href="/report/review">
+                        <button class="btn btn-info">Kembali</button>
+                    </a>
+                @endif
             </div>
         </div>
     </div>
@@ -223,10 +238,10 @@
 
     @push('js')
         <script>
-$(document).ready(function() {
-  $('#table_form').DataTable();
-      $('#table_picture').DataTable();
-            } );
+            $(document).ready(function () {
+                $('#table_form').DataTable();
+                $('#table_picture').DataTable();
+            });
         </script>
     @endpush
 @endsection

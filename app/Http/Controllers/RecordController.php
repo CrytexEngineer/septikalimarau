@@ -63,7 +63,8 @@ class RecordController extends Controller
                     ['id' => $report_id,], ['keterangan' => $request->input('keterangan'),
                         'kasi_id' => $request->input('kasi_id'),
                         'kanit_id' => $request->input('kanit_id'),
-                        'petugas_id' => Auth::user()->id,
+                        'petugas_pagi_id' =>$request->input('petugas_pagi_id'),
+                        'petugas_siang_id' => $request->input('petugas_siang_id'),
                         'updated_at' => Carbon::now()]
                 );
             }
@@ -100,7 +101,8 @@ class RecordController extends Controller
         $data['records'] = Record::where('report_id', '=', $id)->join("items", "records.item_id", "=", "items.id")->get()->all();
         $data['selectedKasi'] = Report::where('reports.id', '=', $id)->join("users", "reports.kasi_id", "=", "users.id")->get()->first();
         $data['selectedKanit'] = Report::where('reports.id', '=', $id)->join("users", "reports.kanit_id", "=", "users.id")->get()->first();
-        $data['selectedPetugas'] = Report::where('reports.id', '=', $id)->join("users", "reports.petugas_id", "=", "users.id")->get()->first();
+        $data['selectedPetugasPagi'] = Report::where('reports.id', '=', $id)->join("users", "reports.petugas_pagi_id", "=", "users.id")->get()->first();
+        $data['selectedPetugasSiang'] = Report::where('reports.id', '=', $id)->join("users", "reports.petugas_siang_id", "=", "users.id")->get()->first();
         $data['kasi'] = User::where('role_id', '=', '2')->get()->pluck('name', 'id');
         if (Auth::user()->hasAnyRoles(['Petugas', 'Kanit'])) {
             $data['kanit'] = User::where('role_id', '=', '3')
@@ -109,15 +111,23 @@ class RecordController extends Controller
         if (Auth::user()->hasAnyRoles(['Admin', 'Kasi'])) {
             $data['kanit'] = User::where('role_id', '=', '3')->get()->pluck('name', 'id');
         }
-        $data['petugas'] = User::where('id', '=', Auth::user()->id)->get()->pluck('name', 'id');
+        $data['petugas']= User::where('unit_id', '=',$report->first()->unit_id )->get()->pluck('name', 'id');
         $data['items'] = Item::where('task_id', '=', $report->first()->task_id)->get();
         $data['task'] = Task::where('tasks.id', '=', $report->first()->task_id);
         $data['gambar'] = Images::where("report_id", "=", $id)->get();
         $data['status'] = Report::where('reports.id', '=', $id)->join('status', 'status.id', '=', 'reports.status_id')->get()->first()['status_name'];
 
-        if ($report->first()->status_id == 1) {
+
+
+        if ($report->first()->status_id == 1||$report->first()->status_id==6) {
+
             return view("record.create", $data);
-        } else {
+        }
+        if ($report->first()->status_id == 2 && Auth::user()->hasAnyRoles(['Admin', 'Kasi'])) {
+            return view("record.create", $data);
+        }
+        else {
+
             return view("record.view", $data);
         }
     }

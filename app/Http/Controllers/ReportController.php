@@ -25,44 +25,65 @@ class ReportController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+
     private $reports;
 
     public function json(Request $request)
     {
-
         if (Auth::user()->hasAnyRoles(['Petugas', 'Kanit'])) {
             $this->reports = DB::table('reports')->select('reports.*',
                 'tasks.task_name',
                 'units.unit_name',
-                'users.name',
-                DB::raw('COUNT(images.id) as jumlahGambar'))
-                ->join('units', 'reports.unit_id', '=', 'units.id')
-                ->join('tasks', 'reports.task_id', "=", "tasks.id")
-                ->leftJoin('users', 'users.id', '=', 'reports.petugas_id')
-                ->leftjoin('images', 'reports.id', '=', 'images.report_id')
-                ->where("reports.status_id", "=", $request->input("status_id"))
-                ->where('reports.unit_id', '=', Auth::user()->unit_id)
-                ->groupBy('reports.id')
-                ->orderBy('reports.updated_at', 'desc')->get()->all();
-
-        }
-        if (Auth::user()->hasAnyRoles(['Admin', 'Kasi'])) {
-            $this->reports = DB::table('reports')->select('reports.*',
-                'tasks.task_name',
-                'units.unit_name',
-                'users.name',
+                'petugas_pagi.name as petugas_pagi',
+                'petugas_siang.name as petugas_siang',
                 DB::raw('COUNT(images.report_id) as jumlahGambar'))
                 ->leftJoin('units', 'reports.unit_id', '=', 'units.id')
                 ->join('tasks', 'reports.task_id', "=", "tasks.id")
-                ->leftJoin('users', 'users.id', '=', 'reports.petugas_id')
-                ->leftJoin('images', 'reports.id', '=', 'images.report_id')
+                ->leftJoin(DB::raw('(select id,name from users) as petugas_pagi'), 'petugas_pagi.id', '=', 'reports.petugas_pagi_id')
+                ->leftJoin(DB::raw('(select id,name from users) as petugas_siang'), 'petugas_siang.id', '=', 'reports.petugas_siang_id')
+                ->leftjoin('images', 'reports.id', '=', 'images.report_id')
                 ->where("reports.status_id", "=", $request->input("status_id"))
-//                ->where('reports.unit_id', '=', $request->input("unit_id"))
-                ->groupBy('reports.id')
-                ->orderBy('reports.updated_at', 'desc')->get()->all();
+                ->where('reports.unit_id', '=', Auth::user()->unit_id);
+
+            if ($request->filter_tanggal && $request->filter_tanggal != "ALL") {
+                $this->reports = $this->reports->whereDate('reports.created_at', Carbon::createFromFormat('d-m-Y', $request->filter_tanggal)->isoFormat('Y-MM-D'));
+            }
+
+
+        }
+        if (Auth::user()->hasAnyRoles(['Admin', 'Kasi'])) {
+
+            $this->reports = DB::table('reports')->select('reports.*',
+                'tasks.task_name',
+                'units.unit_name',
+                'petugas_pagi.name as petugas_pagi',
+                'petugas_siang.name as petugas_siang',
+                DB::raw('COUNT(images.report_id) as jumlahGambar'))
+                ->leftJoin('units', 'reports.unit_id', '=', 'units.id')
+                ->join('tasks', 'reports.task_id', "=", "tasks.id")
+                ->leftJoin(DB::raw('(select id,name from users) as petugas_pagi'), 'petugas_pagi.id', '=', 'reports.petugas_pagi_id')
+                ->leftJoin(DB::raw('(select id,name from users) as petugas_siang'), 'petugas_siang.id', '=', 'reports.petugas_siang_id')
+                ->leftJoin('images', 'reports.id', '=', 'images.report_id')
+                ->where("reports.status_id", "=", $request->input("status_id"));
+
+            if ($request->filter_tanggal && $request->filter_tanggal != "ALL") {
+                $this->reports = $this->reports->whereDate('reports.created_at', Carbon::createFromFormat('d-m-Y', $request->filter_tanggal)->isoFormat('Y-MM-D'));
+
+            }
+
+            if ($request->unit_id == 6 || !$request->unit_id) {
+                $this->reports = $this->reports->groupBy('reports.id');
+
+            } else {
+                $this->reports = $this->reports
+                    ->where('reports.unit_id', '=', $request->input("unit_id"));
+            }
+
 
         }
 
+        $this->reports = $this->reports->groupBy('reports.id')
+            ->orderBy('reports.updated_at', 'desc')->get()->all();
 
         foreach ($this->reports as $report) {
             $report->created_at = Carbon::createFromFormat('Y-m-d H:i:s', $report->created_at)->isoFormat('dddd, D MMMM Y/HH:mm');
@@ -72,7 +93,6 @@ class ReportController extends Controller
         return DataTables::of($this->reports)->addColumn('action', function ($row) {
 
             $action = '<div class="float-sm-left"><a href="/report/' . $row->id . '" class="btn btn-primary" style="f"><i class="fas fa-list"></i> </a>';
-
             if ($row->status_id == 1 || $row->status_id == 6) {
                 $action .= \Form::open(['url' => 'report/' . $row->id, 'method' => 'patch', 'style' => 'float:left margin_right:8px']);
                 $action .= "<input type='hidden' id='status_id' name='status_id' value=2>";
@@ -113,16 +133,24 @@ class ReportController extends Controller
 
     public function index()
     {
+        $creationdates = DB::table('reports')->select(DB::raw('DATE_FORMAT(reports.created_at,"%d-%m-%Y") as created_at'))->distinct()->orderBy('reports.created_at', 'desc')->pluck('created_at');
+        $creationdates['ALL'] = 'ALL';
+        foreach ($creationdates as $key => $value) {
+            $creationdates[$key] = $value;
+        }
+
         if (Auth::user()->hasAnyRoles(['Petugas', 'Kanit'])) {
             $data['unit'] = Unit::where('id', '=', Auth::user()->unit_id)->pluck('unit_name', 'id');
             $data['task'] = Task::where('tasks.unit_id', '=', Auth::user()->unit_id)->pluck('task_name', 'id');
             $data['status'] = "Active";
+            $data['created_at'] = $creationdates;
             return view('report.index', $data);
         }
         if (Auth::user()->hasAnyRoles(['Admin', 'Kasi'])) {
             $data['unit'] = Unit::all()->pluck('unit_name', 'id');
             $data['task'] = Task::all()->pluck('task_name', 'id');
             $data['status'] = "Active";
+            $data['created_at'] = $creationdates;
             return view('report.index', $data);
         }
 
@@ -130,16 +158,23 @@ class ReportController extends Controller
 
     public function archive()
     {
+        $creationdates = DB::table('reports')->select(DB::raw('DATE_FORMAT(reports.created_at,"%d-%m-%Y") as created_at'))->distinct()->orderBy('reports.created_at', 'desc')->pluck('created_at');
+        $creationdates['ALL'] = 'ALL';
+        foreach ($creationdates as $key => $value) {
+            $creationdates[$key] = $value;
+        }
         if (Auth::user()->hasAnyRoles(['Petugas', 'Kanit'])) {
             $data['unit'] = Unit::where('id', '=', Auth::user()->unit_id)->pluck('unit_name', 'id');
             $data['task'] = Task::where('tasks.unit_id', '=', Auth::user()->unit_id)->pluck('task_name', 'id');
             $data['status'] = "Approved";
+            $data['created_at'] = $creationdates;
             return view('report.archive', $data);
         }
         if (Auth::user()->hasAnyRoles(['Admin', 'Kasi'])) {
             $data['unit'] = Unit::all()->pluck('unit_name', 'id');
             $data['task'] = Task::all()->pluck('task_name', 'id');
             $data['status'] = "Approved";
+            $data['created_at'] = $creationdates;
             return view('report.archive', $data);
         }
 
@@ -147,16 +182,23 @@ class ReportController extends Controller
 
     public function reject()
     {
+        $creationdates = DB::table('reports')->select(DB::raw('DATE_FORMAT(reports.created_at,"%d-%m-%Y") as created_at'))->distinct()->orderBy('reports.created_at', 'desc')->pluck('created_at');
+        $creationdates['ALL'] = 'ALL';
+        foreach ($creationdates as $key => $value) {
+            $creationdates[$key] = $value;
+        }
         if (Auth::user()->hasAnyRoles(['Petugas', 'Kanit'])) {
             $data['unit'] = Unit::where('id', '=', Auth::user()->unit_id)->pluck('unit_name', 'id');
             $data['task'] = Task::where('tasks.unit_id', '=', Auth::user()->unit_id)->pluck('task_name', 'id');
-            $data['status'] = "Reject";
+            $data['status'] = "Rejected";
+            $data['created_at'] = $creationdates;
             return view('report.reject', $data);
         }
         if (Auth::user()->hasAnyRoles(['Admin', 'Kasi'])) {
             $data['unit'] = Unit::all()->pluck('unit_name', 'id');
             $data['task'] = Task::all()->pluck('task_name', 'id');
-            $data['status'] = "Reject";
+            $data['status'] = "Rejected";
+            $data['created_at'] = $creationdates;
             return view('report.reject', $data);
         }
 
@@ -164,16 +206,24 @@ class ReportController extends Controller
 
     public function review()
     {
+        $creationdates = DB::table('reports')->select(DB::raw('DATE_FORMAT(reports.created_at,"%d-%m-%Y") as created_at'))->distinct()->orderBy('reports.created_at', 'desc')->pluck('created_at');
+        $creationdates['ALL'] = 'ALL';
+        foreach ($creationdates as $key => $value) {
+            $creationdates[$key] = $value;
+        }
         if (Auth::user()->hasAnyRoles(['Petugas', 'Kanit'])) {
             $data['unit'] = Unit::where('id', '=', Auth::user()->unit_id)->pluck('unit_name', 'id');
             $data['task'] = Task::where('tasks.unit_id', '=', Auth::user()->unit_id)->pluck('task_name', 'id');
             $data['status'] = "Submitted";
+            $data['created_at'] = $creationdates;
             return view('report.review', $data);
+
         }
         if (Auth::user()->hasAnyRoles(['Admin', 'Kasi'])) {
             $data['unit'] = Unit::all()->pluck('unit_name', 'id');
             $data['task'] = Task::all()->pluck('task_name', 'id');
             $data['status'] = "Submitted";
+            $data['created_at'] = $creationdates;
             return view('report.review', $data);
         }
     }
@@ -205,10 +255,18 @@ class ReportController extends Controller
             'task_id' => ['required', 'integer'],
         ], $messeges);
 
-        $task = new Report(['status_id' => 1, 'task_id' => $request->input('task_id'), 'unit_id' => $request->input('unit_id')]);
 
+        $existingReport = Report::where('unit_id', '=', $request->input('unit_id'))->
+        where('task_id', '=', $request->input('task_id'))->
+        whereDate('reports.created_at', Carbon::now()->toDateString())->get()->first();
+
+        if (!$existingReport){
+        $task = new Report(['status_id' => 1, 'task_id' => $request->input('task_id'), 'unit_id' => $request->input('unit_id')]);
         $task->save();
-        return redirect()->back()->withInput();
+        return redirect()->back();}
+
+        $task=Task::where('id',$request->input('task_id'))->get()->first();
+        return redirect()->back()->withErrors("Laporan untuk task ".$task->task_name." telah dibuat hari ini,  Silahkan lanjutkan task yang dibuat petugas sebelumnya! (Silahkan Cek Laporan Ditinjau Jika Tidak Terlihat)");
     }
 
     /**
@@ -247,12 +305,17 @@ class ReportController extends Controller
             if (Auth::user()->hasAnyRoles(['Petugas', 'Kanit'])) {
                 $report['kanit_id'] = User::where('role_id', '=', '3')
                     ->where('unit_id', '=', Auth::user()->unit_id)->get()->first()->id;
-
-                $report['petugas_id'] = User::where('id', '=', Auth::user()->id)->get()->first()->id;
+                if (!isset($report['petugas_pagi_id'])) {
+                    $report['petugas_pagi_id'] = User::where('id', '=', Auth::user()->id)->get()->first()->id;
+                }
+                if (!isset($report['petugas_siang_id'])) {
+                    $report['petugas_siang_id'] = User::where('id', '=', Auth::user()->id)->get()->first()->id;
+                }
             }
 
             if (Auth::user()->hasAnyRoles(['Admin', 'Kasi'])) {
-                if (!isset($report['petugas_id'])
+                if (!isset($report['petugas_pagi_id'])
+                    || !isset($report['petugas_siang_id'])
                     || !isset($report['kanit_id'])
                     || !isset($report['kasi_id'])) {
 
@@ -326,7 +389,8 @@ class ReportController extends Controller
         $report = Report::where("id", "=", "$id")->first();
 
 
-        if (!$report->petugas_id
+        if (!$report->petugas_pagi_id
+            || !$report->petugas_siang_id
             || !$report->kanit_id
             || !$report->kasi_id) {
             return redirect()->back()->withErrors('Pastikan data PETUGAS, KANIT, dan KASI telah diisi!');

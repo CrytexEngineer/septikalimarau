@@ -22,7 +22,8 @@ class CreateReportsTable extends Migration
             $table->bigInteger('status_id')->unsigned();
             $table->foreign('status_id')->references('id')->on('status')->onUpdate('cascade')->onDelete('cascade');
             $table->string('keterangan')->nullable();
-            $table->bigInteger('petugas_id')->unsigned()->nullable();
+            $table->bigInteger('petugas_pagi_id')->unsigned()->nullable();
+            $table->bigInteger('petugas_siang_id')->unsigned()->nullable();
             $table->bigInteger('kanit_id')->unsigned()->nullable();
             $table->bigInteger('kasi_id')->unsigned()->nullable();
             $table->timestamps();

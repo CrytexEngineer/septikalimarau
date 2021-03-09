@@ -24,7 +24,7 @@ Auth::routes();
 Route::get('/', 'App\Http\Controllers\ReportController@index')->name('home')->middleware('auth');
 
 
-Route::middleware('can:management')->group(function () {
+Route::middleware(['can:management','auth'])->group(function () {
 
 
     Route::get('/unit/json', '\App\Http\Controllers\UnitController@json');
@@ -38,13 +38,13 @@ Route::middleware('can:management')->group(function () {
     Route::resource('/item', 'App\Http\Controllers\ItemsController');
 });
 
-Route::middleware('can:admin')->group(function () {
+Route::middleware(['can:admin','auth'])->group(function () {
     Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
     Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
     Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
 });
 
-Route::middleware('can:user')->group(function () {
+Route::middleware(['can:user','auth'])->group(function () {
 
     Route::get('/user/json', '\App\Http\Controllers\UserController@json');
     Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
@@ -64,7 +64,7 @@ Route::middleware('can:user')->group(function () {
 
 
     Route::post('/lampiran/upload', 'App\Http\Controllers\RecordController@upload_lampiran');
-    Route::delete('/lampiran/hapus/{id}', 'App\Http\Controllers\RecordController@hapus');
+    Route::get('/lampiran/hapus/{id}', 'App\Http\Controllers\RecordController@hapus');
     Route::patch('/lampiran/update', 'App\Http\Controllers\RecordController@update_lampiran');
 
     Route::get('/taskquery', 'App\Http\Controllers\FilterHelperController@taskQuery')->name("filter.taskQuery");

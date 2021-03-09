@@ -8,6 +8,16 @@
                     <div class="card-header card-header-primary">
                         <h4 class="card-title ">Laporan Harian Dalam Peninjauan</h4>
                         <p class="card-category"></p>
+                        <div class="row">
+                            @can('management')
+                                <div class="col">
+                                    {{ Form::select('filter_unit_id',$unit,null,['class'=>'form-control','placeholder'=>'Pilih Unit','id'=>'filter_unit_id'])}}
+                                </div>
+                            @endcan('management')
+                            <div class="col">
+                                {{ Form::select('filter_tanggal',$created_at,null,['class'=>'form-control','id'=>'filter_tanggal'])}}
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
                         @can('admin')
@@ -63,7 +73,8 @@
                     url: "/report/json",
                     data: function (d) {
                         d.status_id = "2";
-                        console.log(d);
+                        d.unit_id = $('#filter_unit_id').val();
+                        d.filter_tanggal = $('#filter_tanggal option:selected').text();
                     },
                 },
                 select: {
@@ -159,7 +170,7 @@
 
             $(document).ready(function () {
                 var openRows = [];
-
+                $("#filter_unit_id").val($("#filter_unit_id option:last").val());
                 function closeOpenedRows(table, selectedRow) {
                     $.each(openRows, function (index, openRow) {
                         // not the selected row!
@@ -248,8 +259,19 @@
 
             });
 
+            $('#filter_unit_id').on('change', function (e) {
+                table.ajax.reload(function (result) {
+                });
+            });
+
+            $('#filter_tanggal').on('change', function (e) {
+                table.ajax.reload(function (result) {
+                });
+            });
+
             function format(d, data) {
-                var petugas = (d.name) ? d.name : ' Tidak Diisi'
+                var petugas_pagi = (d.petugas_pagi) ? d.petugas_pagi : ' Tidak Diisi'
+                var petugas_siang = (d.petugas_siang) ? d.petugas_siang : ' Tidak Diisi'
                 var keterangan = (d.keterangan) ? d.keterangan : ' Tidak Diisi'
                 var jumlahGambar = d.jumlahGambar
 
@@ -257,14 +279,16 @@
                 var layoutHeader = '<table id="table_inner_header" class="display" style="width: 100%">' +
                     '  <thead>' +
                     '    <tr>' +
-                    '      <th>Petugas</th>' +
+                    '      <th>Petugas Pagi</th>' +
+                    '      <th>Petugas Siang</th>' +
                     '      <th>Jumlah Gambar</th>' +
                     '      <th>Keterangan</th>' +
                     '    </tr>' +
                     '  </thead>' +
                     '  <tbody>' +
                     '    <tr>' +
-                    '      <td>' + petugas + '</td>' +
+                    '      <td>' + petugas_pagi + '</td>' +
+                    '      <td>' + petugas_siang + '</td>' +
                     '      <td>' + jumlahGambar + '</td>' +
                     '      <td>' + keterangan + '</td>' +
                     '    </tr>' +

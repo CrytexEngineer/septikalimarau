@@ -21,11 +21,13 @@
                             </a>
                         @endcan
 
-                            <a class="btn btn-md btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"> <i class="fas fa-user"></i> Logout  </a>
+                        <a class="btn btn-md btn-primary" href="{{ route('logout') }}"
+                           onclick="event.preventDefault();document.getElementById('logout-form').submit();"> <i
+                                class="fas fa-user"></i> Logout </a>
 
-                            <div class="ripple-container"></div>
+                        <div class="ripple-container"></div>
                         </a>
-                            <div class="table-responsive">
+                        <div class="table-responsive">
                             <table class="display dt" id="table_user">
                                 <thead class=" text-primary">
                                 <th>
@@ -59,29 +61,25 @@
     @push('js')
 
         <script>
-        $(document).ready(function() {
+            $(document).ready(function () {
 
-    $('#table_user').DataTable({
+                $('#table_user').DataTable({
 
-   processing: true,
-                serverSide: false,
-                ajax: '/user/json',
-                columns: [
-                 {data: 'nip', name: 'nip'},
-                    {data: 'name', name: 'name'},
-     {data: 'unit_name', name: 'unit_name'},
-                      {data: 'role_name', name: 'role_name'},
+                    processing: true,
+                    serverSide: false,
+                    ajax: '/user/json',
+                    columns: [
+                        {data: 'nip', name: 'nip'},
+                        {data: 'name', name: 'name'},
+                        {data: 'unit_name', name: 'unit_name'},
+                        {data: 'role_name', name: 'role_name'},
                         {data: 'action', name: 'action'},
 
-            ],
+                    ],
 
-});
+                });
 
-} );
-
-
-
-
+            });
 
 
         </script>

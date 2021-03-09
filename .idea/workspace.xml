@@ -2,20 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="824dbded-0227-432a-97fe-96ce5d4582bd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/css/datatable.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/report/reject.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/RecordController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/RecordController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ReportController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ReportController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/database.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/database.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/StatusTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/StatusTableSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/resources/css/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Report.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Report.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_13_183831_create_reports_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_12_13_183831_create_reports_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/navbars/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/navbars/sidebar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/map.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/map.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/record/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/record/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/record/view.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/record/view.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/report/archive.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/report/archive.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/report/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/report/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/report/reject.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/report/reject.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/report/review.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/report/review.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/users/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/users/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -305,6 +306,18 @@
       <workItem from="1614048352773" duration="1053000" />
       <workItem from="1614063837631" duration="9211000" />
       <workItem from="1614089742617" duration="8989000" />
+      <workItem from="1614129985667" duration="10505000" />
+      <workItem from="1614223117408" duration="1775000" />
+      <workItem from="1614305057767" duration="6335000" />
+      <workItem from="1614317365029" duration="371000" />
+      <workItem from="1614319161036" duration="3176000" />
+      <workItem from="1614491723671" duration="595000" />
+      <workItem from="1614560913693" duration="1833000" />
+      <workItem from="1614650040430" duration="16393000" />
+      <workItem from="1614821597109" duration="4732000" />
+      <workItem from="1614875040647" duration="3039000" />
+      <workItem from="1615124502935" duration="7720000" />
+      <workItem from="1615210818606" duration="4566000" />
     </task>
     <servers />
   </component>
@@ -351,22 +364,25 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1610869436832" />
-    <state x="391" y="191" key="com.intellij.ide.util.TipDialog" timestamp="1614090188284">
+    <state x="391" y="191" key="com.intellij.ide.util.TipDialog" timestamp="1614875046241">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="391" y="191" key="com.intellij.ide.util.TipDialog/0.0.1366.728/-1600.0.1600.860@0.0.1366.728" timestamp="1613868283100" />
-    <state x="391" y="191" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1614090188284" />
-    <state x="-7" y="0" width="697" height="735" maximized="true" key="dock-window-1" timestamp="1614119868392">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="391" y="191" key="com.intellij.ide.util.TipDialog/0.0.1366.728/-1920.0.1920.1040@0.0.1366.728" timestamp="1614875046241" />
+    <state x="391" y="191" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1614305523121" />
+    <state x="-1243" y="0" width="968" height="595" maximized="true" key="dock-window-1" timestamp="1615124512163">
+      <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
     <state x="-808" y="0" width="817" height="869" key="dock-window-1/0.0.1366.728/-1600.0.1600.860@-1600.0.1600.860" timestamp="1613179806318" />
     <state x="676" y="0" width="697" height="735" key="dock-window-1/0.0.1366.728/-1600.0.1600.860@0.0.1366.728" timestamp="1613404309258" />
-    <state x="-7" y="0" width="697" height="735" maximized="true" key="dock-window-1/0.0.1366.728@0.0.1366.728" timestamp="1614119868392" />
-    <state x="390" y="125" width="607" height="526" key="find.popup" timestamp="1613288351526">
+    <state x="-1243" y="0" width="968" height="595" maximized="true" key="dock-window-1/0.0.1366.728/-1920.0.1920.1040@0.0.1366.728" timestamp="1615124512163" />
+    <state x="-7" y="0" width="697" height="735" key="dock-window-1/0.0.1366.728@0.0.1366.728" timestamp="1614570752262" />
+    <state x="390" y="125" width="607" height="526" key="find.popup" timestamp="1615180205372">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="390" y="125" width="607" height="526" key="find.popup/0.0.1366.728/-1600.0.1600.860@0.0.1366.728" timestamp="1613288351526" />
-    <state x="390" y="125" width="586" height="478" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1612750091225" />
+    <state x="390" y="125" width="607" height="526" key="find.popup/0.0.1366.728/-1920.0.1920.1040@0.0.1366.728" timestamp="1615180205372" />
+    <state x="390" y="125" width="607" height="526" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1614306372265" />
     <state x="339" y="162" key="run.anything.popup" timestamp="1613946904739">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -392,13 +408,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/ReportController.php</url>
-          <line>92</line>
+          <line>112</line>
           <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/resources/views/record/create.blade.php</url>
-          <line>30</line>
-          <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/resources/views/users/edit.blade.php</url>
@@ -412,13 +423,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/resources/views/record/create.blade.php</url>
-          <line>182</line>
+          <line>185</line>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/resources/views/report/review.blade.php</url>
-          <line>12</line>
+          <line>22</line>
           <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/resources/views/record/create.blade.php</url>
+          <line>152</line>
+          <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

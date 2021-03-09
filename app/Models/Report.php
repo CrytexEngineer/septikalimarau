@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Report extends Model
 {
     use HasFactory;
-protected $fillable =['status_id','task_id','unit_id','keterangan','petugas_id','kanit_id','kasi_id'];
+protected $fillable =['status_id','task_id','unit_id','keterangan','petugas_pagi_id','petugas_siang_id','kanit_id','kasi_id'];
 
 
 

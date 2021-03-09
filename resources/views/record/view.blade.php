@@ -2,7 +2,6 @@
 @section('content')
 
     <div class="content">
-
             <meta name="csrf-token" content="{{ csrf_token() }}">
             @include('validation_error')
             {{ Form::model($records,['url'=>'record'])}}
@@ -104,10 +103,14 @@
 
                     <div class="row">
                         <div class="col-sm-3">
-                            <label>Petugas</label>
-                            {{ Form::select('petugas_id',$petugas,$selectedPetugas?$selectedPetugas->id:null,['class'=>'form-control','placeholder'=>$selectedPetugas->name,'id'=>'id','disabled'])}}
+                            <label>Petugas Pagi</label>
+                            {{ Form::select('petugas_pagi_id',$petugas,$selectedPetugasPagi?$selectedPetugasPagi->id:null,['class'=>'form-control','placeholder'=>'Pilih Petugas','id'=>'id'])}}
                         </div>
                         <div class="col-sm-3">
+                            <label>Petugas Siang</label>
+                            {{ Form::select('petugas_siang_id',$petugas,$selectedPetugasSiang?$selectedPetugasSiang->id:null,['class'=>'form-control','placeholder'=>'Pilih Petugas','id'=>'id'])}}
+                        </div>
+                            <div class="col-sm-3">
                             <label>Kanit</label>{{ Form::select('kanit_id',$kanit,$selectedKanit?$selectedKanit->id:null,['class'=>'form-control','placeholder'=>$selectedKanit,'id'=>'id','disabled'])}}
                         </div>
                         <div class="col-sm-3">
@@ -156,6 +159,15 @@
                 </div>
             </div>
 
+        @if($status=='Submitted')
+            <a href="/report/review">
+                <button class="btn btn-info">Kembali</button>
+            </a>
+        @elseif($status=='Approved')
+            <a href="/report/archive">
+                <button class="btn btn-info">Kembali</button>
+            </a>
+        @endif
     </div>
 
 
