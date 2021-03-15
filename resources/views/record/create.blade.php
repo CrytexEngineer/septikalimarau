@@ -145,7 +145,7 @@
                     </div>
                     <div class="col-sm-3">
                         <label>Petugas Siang</label>
-                        {{ Form::select('petugas_siang_id',$petugas,$selectedPetugasSiang?$selectedPetugasSiang->id:null,['class'=>'form-control','placeholder'=>'Pilih Kanit','id'=>'id'])}}
+                        {{ Form::select('petugas_siang_id',$petugas,$selectedPetugasSiang?$selectedPetugasSiang->id:null,['class'=>'form-control','placeholder'=>'Pilih Petugas','id'=>'id'])}}
                     </div>
                     <div class="col-sm-3">
                         <label>Kanit</label>{{ Form::select('kanit_id',$kanit,$selectedKanit?$selectedKanit->id:null,['class'=>'form-control','placeholder'=>'Pilih Kanit','id'=>'id'])}}

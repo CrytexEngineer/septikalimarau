@@ -17,11 +17,11 @@ class ReportExporter implements WithMultipleSheets
     /**
      * StudentReportExport constructor.
      */
-    private $report_id;
+    private $reports;
 
-    public function __construct( $report_id)
+    public function __construct( $reports)
     {
-        $this->report_id=$report_id;
+        $this->$reports=$reports;
 
     }
 
@@ -36,15 +36,9 @@ class ReportExporter implements WithMultipleSheets
         $sheets = [];
 
 
+            $sheets[] = new MassReportSheet($this->reports);
+//            $sheets[] = new ImagesSheet($report->id);
 
-        $reports = Report::where('id','=',$this->report_id)->get();
-
-        foreach ($reports as $report) {
-
-            $sheets[] = new ReportSheet($report->id);
-            $sheets[] = new ImagesSheet($report->id);
-
-        }
 
         return $sheets;
     }

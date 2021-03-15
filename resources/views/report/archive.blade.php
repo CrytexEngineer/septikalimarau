@@ -1,28 +1,38 @@
 @extends('layouts.app', ['activePage' => $status, 'titlePage' => __('Manajemen Laporan Harian')])
 @section('content')
-
+    <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
     <div class="content">
 
 
         <div class="row">
             <div class="col-md-12">
+                @include('validation_error')
                 <div class="card">
                     <div class="card-header card-header-primary">
                         <h4 class="card-title ">Arsip Laporan Harian</h4>
+
                         <div class="row">
                             @can('management')
                                 <div class="col">
-                                    {{ Form::select('filter_unit_id',$unit,null,['class'=>'form-control','placeholder'=>'Pilih Unit','id'=>'filter_unit_id'])}}
+                                    <p class="card-category">Filter Unit</p>
+                                    {{ Form::select('filter_unit_id',$unit,null,['class'=>'form-control','style'=>'background-color:white','placeholder'=>'Pilih Unit','id'=>'filter_unit_id'])}}
                                 </div>
                             @endcan('management')
                             <div class="col">
-                                {{ Form::select('filter_tanggal',$created_at,null,['class'=>'form-control','id'=>'filter_tanggal'])}}
+                                <p class="card-category">Filter Tanggal</p>
+                                {{ Form::select('filter_tanggal',$created_at,null,['class'=>'form-control','style'=>'background-color:white','id'=>'filter_tanggal'])}}
+
+
                             </div>
+
                         </div>
                         <p class="card-category"></p>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
+                            <button id="button_mass_download" name="button_mass_download" class="btn btn-danger">
+                                Unduh Masal
+                            </button>
                             <table class="display  compact" id="table_task">
                                 <thead class=" text-primary">
                                 <th>
@@ -76,7 +86,7 @@
                     "data": function (d) {
                         d.status_id = "5";
                         d.unit_id = $('#filter_unit_id').val();
-                        d.filter_tanggal=$('#filter_tanggal option:selected').text();
+                        d.filter_tanggal = $('#filter_tanggal option:selected').text();
                     }
                 },
                 columns: [
@@ -152,7 +162,7 @@
                                 id: row.data().id
                             },
                             success: function (data) {
-                                row.child(format(row.data(),data)).show();
+                                row.child(format(row.data(), data)).show();
                             }
                         });
 
@@ -201,6 +211,24 @@
                 table.ajax.reload(function (result) {
                 });
             });
+
+            $('#button_mass_download').on('click', function (e) {
+                $.ajax({
+                    url: "{{ route('report.mass_export') }}",
+                    type: "Post",
+                    data: {
+                        _token: $("#csrf").val(),
+                        unit_id : $('#filter_unit_id').val(),
+                        tanggal :$('#filter_tanggal').val()
+                    },
+                    success: function (data) {
+                     console.log(data)
+                    }
+
+                })
+
+
+            })
 
             function format(d, data) {
                 var petugas_pagi = (d.petugas_pagi) ? d.petugas_pagi : ' Tidak Diisi'

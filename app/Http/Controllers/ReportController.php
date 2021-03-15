@@ -432,4 +432,10 @@ class ReportController extends Controller
         return Excel::download(new ReportExporter($id), $unit . '-' . $task . '-' . $date . '.xlsx');
 
     }
+
+    public function mass_export(Request $request)
+    {
+        $report= Report::where('reports.unit_id','=',$request->unit_id)-> get()->all();
+        return $report;
+    }
 }

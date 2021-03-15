@@ -49,7 +49,7 @@ Route::middleware(['can:user','auth'])->group(function () {
     Route::get('/user/json', '\App\Http\Controllers\UserController@json');
     Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
 
-
+    Route::post('/report/export/', 'App\Http\Controllers\ReportController@mass_export')->name("report.mass_export");
     Route::get('/report/export/{report_id}', '\App\Http\Controllers\ReportController@saveExport')->name("report.export");
     Route::get('/report/archive', '\App\Http\Controllers\ReportController@archive')->name("report.archive");
     Route::get('/report/review', '\App\Http\Controllers\ReportController@review')->name("report.review");

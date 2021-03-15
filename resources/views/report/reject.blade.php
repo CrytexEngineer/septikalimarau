@@ -11,17 +11,19 @@
                         <div class="row">
                             @can('management')
                                 <div class="col">
-                                    {{ Form::select('filter_unit_id',$unit,null,['class'=>'form-control','placeholder'=>'Pilih Unit','id'=>'filter_unit_id'])}}
+                                    <p class="card-category">Filter Unit</p>
+                                    {{ Form::select('filter_unit_id',$unit,null,['class'=>'form-control','style'=>'background-color:white','placeholder'=>'Pilih Unit','id'=>'filter_unit_id'])}}
                                 </div>
                             @endcan('management')
                             <div class="col">
-                                {{ Form::select('filter_tanggal',$created_at,null,['class'=>'form-control','id'=>'filter_tanggal'])}}
+                                <p class="card-category">Filter Tanggal</p>
+                                {{ Form::select('filter_tanggal',$created_at,null,['class'=>'form-control','style'=>'background-color:white','id'=>'filter_tanggal'])}}
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
-                        <button id="buttonSubmit" name="buttonSubmit">Submit Masal</button>
-                        <button id="buttonDelete" name="buttonDelete">Hapus Masal</button>
+                        <button id="buttonSubmit" name="buttonSubmit" class="btn btn-danger">Submit Masal</button>
+                        <button id="buttonDelete" name="buttonDelete" class="btn btn-danger">Hapus Masal</button>
                         <div class="table-responsive">
                             <table class="display  compact" id="table_task">
                                 <thead class=" text-primary">
