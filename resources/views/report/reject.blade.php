@@ -4,26 +4,30 @@
     <div class="content">
         <div class="row">
             <div class="col-md-12">
+                @include('validation_error')
                 <div class="card">
                     <div class="card-header card-header-primary">
                         <h4 class="card-title "> Laporan Ditolak</h4>
                         <p class="card-category"></p>
+
+                    </div>
+                    <div class="card-body">
                         <div class="row">
                             @can('management')
                                 <div class="col">
                                     <p class="card-category">Filter Unit</p>
-                                    {{ Form::select('filter_unit_id',$unit,null,['class'=>'form-control','style'=>'background-color:white','placeholder'=>'Pilih Unit','id'=>'filter_unit_id'])}}
+                                    {{ Form::select('filter_unit_id',$unit,null,['class'=>'form-control','placeholder'=>'Pilih Unit','id'=>'filter_unit_id'])}}
                                 </div>
                             @endcan('management')
                             <div class="col">
                                 <p class="card-category">Filter Tanggal</p>
-                                {{ Form::select('filter_tanggal',$created_at,null,['class'=>'form-control','style'=>'background-color:white','id'=>'filter_tanggal'])}}
+                                {{ Form::select('filter_tanggal',$created_at,null,['class'=>'form-control','id'=>'filter_tanggal'])}}
                             </div>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <button id="buttonSubmit" name="buttonSubmit" class="btn btn-danger">Submit Masal</button>
-                        <button id="buttonDelete" name="buttonDelete" class="btn btn-danger">Hapus Masal</button>
+                        <br>
+                        <br>
+                        <button id="buttonSubmit" name="buttonSubmit" class="btn btn-primary ">  Submit Masal</button>
+                        <button id="buttonDelete" name="buttonDelete" class="btn btn-outline-danger">  Hapus Masal</button>
                         <div class="table-responsive">
                             <table class="display  compact" id="table_task">
                                 <thead class=" text-primary">

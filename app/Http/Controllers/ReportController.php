@@ -94,13 +94,14 @@ class ReportController extends Controller
 
             $action = '<div class="float-sm-left"><a href="/report/' . $row->id . '" class="btn btn-primary" style="f"><i class="fas fa-list"></i> </a>';
             if ($row->status_id == 1 || $row->status_id == 6) {
-                $action .= \Form::open(['url' => 'report/' . $row->id, 'method' => 'patch', 'style' => 'float:left margin_right:8px']);
-                $action .= "<input type='hidden' id='status_id' name='status_id' value=2>";
-                $action .= "<button type='submit'class='btn btn-primary btn-block'><i class='fas fa-key'></i></button>";
+//                $action .= \Form::open(['url' => 'report/' . $row->id, 'method' => 'patch', 'style' => 'float:left margin_right:8px']);
+//                $action .= "<input type='hidden' id='status_id' name='status_id' value=2>";
+                $action .= "<button type='submit'class='btn btn-primary btn-block' id='btnRowSubmit' name='btnRowSubmit[]'><i class='fas fa-key'></i></button>";
                 $action .= \Form::close();
                 $action .= \Form::open(['url' => 'report/' . $row->id, 'method' => 'delete', 'style' => 'float:right']);
                 $action .= "<button onclick='return confirm(\"Apakah Anda Yakin?\")'  type='submit'class='btn btn-primary btn-block'><i class='fas fa-trash'></i></button>";
                 $action .= \Form::close();
+
             }
             if ($row->status_id == 2) {
                 if (Auth::user()->hasAnyRoles(['Admin', 'Kasi'])) {
@@ -119,12 +120,13 @@ class ReportController extends Controller
             }
 
             if ($row->status_id == 5) {
-                $action .= '<div class="float-sm-right"><a href="/report/export/' . $row->id . '" class="btn btn-primary "><i class="fas fa-download"></i> </a>';
-
+                $action .= '<div><a href="/report/export/' . $row->id . '" class="btn btn-primary "><i class="fas fa-download"></i> </a>';
+                $action .= '</br>';
 
             }
 
             $action .= "</div>";
+            $action .= '</div>';
             return $action;
         })->make(true);
 
@@ -133,17 +135,22 @@ class ReportController extends Controller
 
     public function index()
     {
-        $creationdates = DB::table('reports')->select(DB::raw('DATE_FORMAT(reports.created_at,"%d-%m-%Y") as created_at'))->distinct()->orderBy('reports.created_at', 'desc')->pluck('created_at');
+        $creationdates = DB::table('reports')->select(DB::raw('DATE_FORMAT(reports.created_at,"%d-%m-%Y") as created_at'))->distinct()->orderBy('reports.created_at', 'desc')->limit(10)->pluck('created_at');
         $creationdates['ALL'] = 'ALL';
+
         foreach ($creationdates as $key => $value) {
             $creationdates[$key] = $value;
         }
+        $rejectedReports = Report::where('status_id', 6);
 
         if (Auth::user()->hasAnyRoles(['Petugas', 'Kanit'])) {
             $data['unit'] = Unit::where('id', '=', Auth::user()->unit_id)->pluck('unit_name', 'id');
             $data['task'] = Task::where('tasks.unit_id', '=', Auth::user()->unit_id)->pluck('task_name', 'id');
             $data['status'] = "Active";
             $data['created_at'] = $creationdates;
+            $rejectedReports = $rejectedReports->where('unit_id', Auth::user()->unit_id)->get()->count();
+            $data['rejectedReports'] = $rejectedReports;
+
             return view('report.index', $data);
         }
         if (Auth::user()->hasAnyRoles(['Admin', 'Kasi'])) {
@@ -151,6 +158,10 @@ class ReportController extends Controller
             $data['task'] = Task::all()->pluck('task_name', 'id');
             $data['status'] = "Active";
             $data['created_at'] = $creationdates;
+
+            $rejectedReports = $rejectedReports->get()->count();
+            $data['rejectedReports'] = $rejectedReports;
+
             return view('report.index', $data);
         }
 
@@ -158,7 +169,7 @@ class ReportController extends Controller
 
     public function archive()
     {
-        $creationdates = DB::table('reports')->select(DB::raw('DATE_FORMAT(reports.created_at,"%d-%m-%Y") as created_at'))->distinct()->orderBy('reports.created_at', 'desc')->pluck('created_at');
+        $creationdates = DB::table('reports')->select(DB::raw('DATE_FORMAT(reports.created_at,"%d-%m-%Y") as created_at'))->distinct()->orderBy('reports.created_at', 'desc')->limit(10)->pluck('created_at');
         $creationdates['ALL'] = 'ALL';
         foreach ($creationdates as $key => $value) {
             $creationdates[$key] = $value;
@@ -182,7 +193,7 @@ class ReportController extends Controller
 
     public function reject()
     {
-        $creationdates = DB::table('reports')->select(DB::raw('DATE_FORMAT(reports.created_at,"%d-%m-%Y") as created_at'))->distinct()->orderBy('reports.created_at', 'desc')->pluck('created_at');
+        $creationdates = DB::table('reports')->select(DB::raw('DATE_FORMAT(reports.created_at,"%d-%m-%Y") as created_at'))->distinct()->orderBy('reports.created_at', 'desc')->limit(10)->pluck('created_at');
         $creationdates['ALL'] = 'ALL';
         foreach ($creationdates as $key => $value) {
             $creationdates[$key] = $value;
@@ -206,7 +217,7 @@ class ReportController extends Controller
 
     public function review()
     {
-        $creationdates = DB::table('reports')->select(DB::raw('DATE_FORMAT(reports.created_at,"%d-%m-%Y") as created_at'))->distinct()->orderBy('reports.created_at', 'desc')->pluck('created_at');
+        $creationdates = DB::table('reports')->select(DB::raw('DATE_FORMAT(reports.created_at,"%d-%m-%Y") as created_at'))->distinct()->orderBy('reports.created_at', 'desc')->limit(10)->pluck('created_at');
         $creationdates['ALL'] = 'ALL';
         foreach ($creationdates as $key => $value) {
             $creationdates[$key] = $value;
@@ -260,13 +271,14 @@ class ReportController extends Controller
         where('task_id', '=', $request->input('task_id'))->
         whereDate('reports.created_at', Carbon::now()->toDateString())->get()->first();
 
-        if (!$existingReport){
-        $task = new Report(['status_id' => 1, 'task_id' => $request->input('task_id'), 'unit_id' => $request->input('unit_id')]);
-        $task->save();
-        return redirect()->back();}
+        if (!$existingReport) {
+            $task = new Report(['status_id' => 1, 'task_id' => $request->input('task_id'), 'unit_id' => $request->input('unit_id')]);
+            $task->save();
+            return redirect()->back();
+        }
 
-        $task=Task::where('id',$request->input('task_id'))->get()->first();
-        return redirect()->back()->withErrors("Laporan untuk task ".$task->task_name." telah dibuat hari ini,  Silahkan lanjutkan task yang dibuat petugas sebelumnya! (Silahkan Cek Laporan Ditinjau Jika Tidak Terlihat)");
+        $task = Task::where('id', $request->input('task_id'))->get()->first();
+        return redirect()->back()->withErrors("Laporan untuk task " . $task->task_name . " telah dibuat hari ini,  Silahkan lanjutkan task yang dibuat petugas sebelumnya! (Silahkan Cek Laporan Ditinjau Jika Tidak Terlihat)");
     }
 
     /**
@@ -393,13 +405,13 @@ class ReportController extends Controller
             || !$report->petugas_siang_id
             || !$report->kanit_id
             || !$report->kasi_id) {
-            return redirect()->back()->withErrors('Pastikan data PETUGAS, KANIT, dan KASI telah diisi!');
+            return redirect()->back()->withInput($request->input())->withErrors('Pastikan data PETUGAS, KANIT, dan KASI telah diisi!');
         }
         $report->status_id = $request->input('status_id');
         $report->timestamps = false;
 
         $report->save();
-        return redirect()->back();
+        return redirect()->back()->withInput($request->input());
     }
 
     /**
@@ -435,7 +447,7 @@ class ReportController extends Controller
 
     public function mass_export(Request $request)
     {
-        $report= Report::where('reports.unit_id','=',$request->unit_id)-> get()->all();
+        $report = Report::where('reports.unit_id', '=', $request->unit_id)->get()->all();
         return $report;
     }
 }

@@ -26,19 +26,16 @@
                     <div class="card-body">
 
 
-                        <table>
-
-                            <tr>
+                        <div class="form-group row">
+                            <div class="col-md-6">
                                 <td width="300">Nama Tugas</td>
                                 <td>
                                     {{ Form::text('task_name',null,['class'=>'form-control','placeholder'=>'Masukan task'])}}
                                 </td>
-                            </tr>
+                            </div>
+                        </div>
 
                             @csrf
-
-
-                        </table>
                         <br>
                         <br>
                         {{ Form::submit('Tambahkan',['class'=>'btn btn-primary'])}}

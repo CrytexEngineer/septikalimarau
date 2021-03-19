@@ -11,26 +11,31 @@
                     <div class="card-header card-header-primary">
                         <h4 class="card-title ">Arsip Laporan Harian</h4>
 
-                        <div class="row">
-                            @can('management')
-                                <div class="col">
-                                    <p class="card-category">Filter Unit</p>
-                                    {{ Form::select('filter_unit_id',$unit,null,['class'=>'form-control','style'=>'background-color:white','placeholder'=>'Pilih Unit','id'=>'filter_unit_id'])}}
-                                </div>
-                            @endcan('management')
-                            <div class="col">
-                                <p class="card-category">Filter Tanggal</p>
-                                {{ Form::select('filter_tanggal',$created_at,null,['class'=>'form-control','style'=>'background-color:white','id'=>'filter_tanggal'])}}
 
-
-                            </div>
-
-                        </div>
                         <p class="card-category"></p>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <button id="button_mass_download" name="button_mass_download" class="btn btn-danger">
+                            <div class="row">
+                                @can('management')
+                                    <div class="col">
+                                    <span style="color:white">
+                                    <p class="card-category">Filter Unit</p>
+                                    {{ Form::select('filter_unit_id',$unit,null,['class'=>'form-control','placeholder'=>'Pilih Unit','id'=>'filter_unit_id'])}}
+                                    </span>
+                                    </div>
+                                @endcan('management')
+                                <div class="col">
+                                    <p class="card-category">Filter Tanggal</p>
+                                    {{ Form::select('filter_tanggal',$created_at,null,['class'=>'form-control','id'=>'filter_tanggal'])}}
+
+
+                                </div>
+
+                            </div>
+                            <br>
+                            <br>
+                            <button id="button_mass_download" name="button_mass_download" class="btn btn-primary">
                                 Unduh Masal
                             </button>
                             <table class="display  compact" id="table_task">
@@ -218,11 +223,11 @@
                     type: "Post",
                     data: {
                         _token: $("#csrf").val(),
-                        unit_id : $('#filter_unit_id').val(),
-                        tanggal :$('#filter_tanggal').val()
+                        unit_id: $('#filter_unit_id').val(),
+                        tanggal: $('#filter_tanggal').val()
                     },
                     success: function (data) {
-                     console.log(data)
+                        console.log(data)
                     }
 
                 })

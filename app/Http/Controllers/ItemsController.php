@@ -51,10 +51,10 @@ class ItemsController extends Controller
      */
     public function store(Request $request)
     {
-        $messege = ["unit_id.required" => "Harap Pilih Unit",
+        $messege = ["task_id.required" => "Harap Pilih Unit",
             "item_name.required" => "Harap Isi Nama Item",
         ];
-        $request->validate(['unit_id' => 'required', 'item_name' => 'required'], $messege);
+        $request->validate(['task_id' => 'required', 'item_name' => 'required'], $messege);
         $item = new Item($request->all());
         $item->save();
         return redirect()->back()->withInput();

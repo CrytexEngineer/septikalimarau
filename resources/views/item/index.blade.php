@@ -8,14 +8,10 @@
             <div class="col-md-12">
 
 
-
                 @include('validation_error')
                 {{ Form::open(['url'=>'item'])}}
-                <h1 class="card p-md-2 mb-md-5" >
+                <h1 class="card p-md-2 mb-md-5">
                     {{ Form::select('task_id',$task,null,['class'=>'form-control','selected'=>''.$task->first().'','id'=>'id'])}} </h1>
-
-
-
 
 
                 <div class="card">
@@ -26,19 +22,20 @@
                     <div class="card-body">
 
 
-                        <table>
+                        <div class="form-group row">
+                            <div class="col-md-6">
 
-                            <tr>
-                                <td width="300">Nama Item</td>
-                                <td>
-                                    {{ Form::text('item_name',null,['class'=>'form-control','placeholder'=>'Masukan Item'])}}
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td width="300">Nama Item</td>
+                                    <td>
+                                        {{ Form::text('item_name',null,['class'=>'form-control','placeholder'=>'Masukan Item'])}}
+                                    </td>
+                                </tr>
+                            </div>
+                        </div>
+                        @csrf
 
-                            @csrf
 
-
-                        </table>
                         <br>
                         <br>
                         {{ Form::submit('Tambahkan',['class'=>'btn btn-primary'])}}
@@ -84,41 +81,37 @@
     @push('js')
 
         <script>
-      var table= $('#table_task').DataTable({
-    "columnDefs": [
-    { "width": "20%"},
-  ],
-     fixedColumns: true,
-   processing: true,
+            var table = $('#table_task').DataTable({
+                "columnDefs": [
+                    {"width": "20%"},
+                ],
+                fixedColumns: true,
+                processing: true,
                 serverSide: false,
-                  ajax: {
-                "url": '/item/json',
-                "data": function ( d ) {
-                    d.id = $('#id').val();
-                    console.log(d);
-                }},
+                ajax: {
+                    "url": '/item/json',
+                    "data": function (d) {
+                        d.id = $('#id').val();
+                        console.log(d);
+                    }
+                },
                 columns: [
                     {data: 'id', name: 'id'},
                     {data: 'item_name', name: 'item_name'},
-                {data: 'action', name: 'action'}
+                    {data: 'action', name: 'action'}
 
-            ],
+                ],
 
-});
+            });
 
 
-
-   $(document).ready(function () {
-                $('#id').on('change',function(e) {
-               table.ajax.reload();
+            $(document).ready(function () {
+                $('#id').on('change', function (e) {
+                    table.ajax.reload();
 
 
                 });
-        });
-
-
-
-
+            });
 
 
         </script>

@@ -4,28 +4,32 @@
     <div class="content">
         <div class="row">
             <div class="col-md-12">
+                @include('validation_error')
                 <div class="card">
                     <div class="card-header card-header-primary">
                         <h4 class="card-title ">Laporan Harian Dalam Peninjauan</h4>
                         <p class="card-category"></p>
+
+                    </div>
+                    <div class="card-body">
                         <div class="row">
 
                             @can('management')
                                 <div class="col">
                                     <p class="card-category">Filter Unit</p>
-                                    {{ Form::select('filter_unit_id',$unit,null,['class'=>'form-control','style'=>'background-color:white','placeholder'=>'Pilih Unit','id'=>'filter_unit_id'])}}
+                                    {{ Form::select('filter_unit_id',$unit,null,['class'=>'form-control','placeholder'=>'Pilih Unit','id'=>'filter_unit_id'])}}
                                 </div>
                             @endcan('management')
                             <div class="col">
                                 <p class="card-category">Filter Tanggal</p>
-                                {{ Form::select('filter_tanggal',$created_at,null,['class'=>'form-control','style'=>'background-color:white','id'=>'filter_tanggal'])}}
+                                {{ Form::select('filter_tanggal',$created_at,null,['class'=>'form-control','id'=>'filter_tanggal'])}}
                             </div>
                         </div>
-                    </div>
-                    <div class="card-body">
+                        <br>
+                        <br>
                         @can('admin')
-                            <button id="buttonApprove" name="buttonApprove"  class="btn btn-danger">Arsip Masal</button>
-                            <button id="buttonReject" name="buttonReject"  class="btn btn-danger">Tolak Masal</button>
+                            <button id="buttonApprove" name="buttonApprove"  class="btn btn-primary">Arsip Masal</button>
+                            <button id="buttonReject" name="buttonReject"  class="btn btn-outline-danger">Tolak Masal</button>
                         @endcan
                         <div class="table-responsive">
                             <table class="display  compact" id="table_task">

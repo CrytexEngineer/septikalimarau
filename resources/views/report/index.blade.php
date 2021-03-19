@@ -3,102 +3,111 @@
 
     <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
     <div class="content">
-            <div class="row">
-                <div class="col-md-12">
-                    @include('validation_error')
-                    {{ Form::open(['url'=>'report'])}}
+        <div class="row">
+            <div class="col-md-12">
+                @include('reject_warning')
+                @include('validation_error')
+                {{ Form::open(['url'=>'report'])}}
 
-                    <div class="card">
-                        <div class="card-header card-header-primary">
-                            <h4 class="card-title ">Tambah Laporan Harian</h4>
-                            <p class="card-category"></p>
-                        </div>
-                        <div class="card-body">
-                            <table>
-                                <tr>
-                                    <td>
-                                        <div class="form-group row">
-                                            <div class="col-md-6">
-                                                {{ Form::select('unit_id',$unit,null,['class'=>'form-control','placeholder'=>'Pilih unit','id'=>'unit_id'])}}
-                                            </div>
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title ">Tambah Laporan Harian</h4>
+                        <p class="card-category"></p>
+                    </div>
+                    <div class="card-body">
+                        <table>
+                            <tr>
+                                <td>
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            {{ Form::select('unit_id',$unit,null,['class'=>'form-control','placeholder'=>'Pilih unit','id'=>'unit_id'])}}
                                         </div>
-                                    </td>
-                                </tr>
+                                    </div>
+                                </td>
+                            </tr>
 
-                                <tr>
-                                    <td width="500">
-                                        <div class="form-group row">
-                                            <div class="col-md-6">
-                                                {{ Form::select('task_id',[],null,['class'=>'form-control','placeholder'=>'Pilih task','id'=>'task_id'])}}
-                                            </div>
+                            <tr>
+                                <td width="500">
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            {{ Form::select('task_id',[],null,['class'=>'form-control','placeholder'=>'Pilih task','id'=>'task_id'])}}
                                         </div>
-                                    </td>
-                                </tr>
-                                @csrf
-                            </table>
-                            <br>
-                            <br>
-                            {{ Form::submit('Tambahkan',['class'=>'btn btn-primary'])}}
-                            {{Form::close()}}
-                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            @csrf
+                        </table>
+                        <br>
+                        <br>
+                        {{ Form::submit('Tambahkan',['class'=>'btn btn-primary'])}}
+                        {{Form::close()}}
                     </div>
                 </div>
             </div>
+        </div>
 
 
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header card-header-primary">
-                            <h4 class="card-title ">Laporan Harian Aktif</h4>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title ">Laporan Harian Aktif</h4>
+                    </div>
 
+
+                    <div class="card-body">
+                        <div class="table-responsive">
                             <div class="row">
                                 @can('management')
                                     <div class="col">
                                         <p class="card-category">Filter Unit</p>
-                                        {{ Form::select('filter_unit_id',$unit,null,['class'=>'form-control','style'=>'background-color:white','placeholder'=>'Pilih Unit','id'=>'filter_unit_id'])}}
+                                        {{ Form::select('filter_unit_id',$unit,null,['class'=>'form-control','placeholder'=>'Pilih Unit','id'=>'filter_unit_id'])}}
                                     </div>
                                 @endcan('management')
                                 <div class="col">
                                     <p class="card-category">Filter Tanggal</p>
-                                    {{ Form::select('filter_tanggal',$created_at,null,['class'=>'form-control','style'=>'background-color:white','id'=>'filter_tanggal'])}}
+                                    {{ Form::select('filter_tanggal',$created_at,null,['class'=>'form-control','id'=>'filter_tanggal'])}}
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-body">
-                            <button id="buttonSubmit" name="buttonSubmit" class="btn btn-danger ">  Submit Masal</button>
-                            <button id="buttonDelete" name="buttonDelete" class="btn btn-danger">  Hapus Masal</button>
-                            <div class="table-responsive">
-                                <table class="display  compact" id="table_task">
-                                    <thead class=" text-primary">
-                                    <th>Detail</th>
-                                    <th>
-                                        ID
-                                    </th>
-                                    <th>
-                                        Unit
-                                    </th>
-                                    <th>
-                                        Tugas Pelaporan
-                                    </th>
-                                    <th>
-                                        Dibuat
-                                    </th>
-                                    <th>
-                                        Diperbaharui
-                                    </th>
-                                    <th>
-                                        Aksi
-                                    </thead>
+                            <br>
+                            <br>
+                            <button id="buttonSubmit" name="buttonSubmit" class="btn btn-primary "> Submit Masal
+                            </button>
+                            <button id="buttonDelete" name="buttonDelete" class="btn btn-outline-danger"> Hapus Masal
+                            </button>
+                            <table class="display  compact" id="table_task">
+                                <thead class=" text-primary">
+                                <th>Detail</th>
+                                <th>
+                                    ID
+                                </th>
+                                <th>
+                                    Unit
+                                </th>
+                                <th>
+                                    Tugas Pelaporan
+                                </th>
+                                <th>
+                                    Dibuat
+                                </th>
+                                <th>
+                                    Diperbaharui
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                </thead>
 
-                                </table>
-                            </div>
+                            </table>
+
                         </div>
                     </div>
                 </div>
-
             </div>
+
         </div>
+    </div>
 
 
     @push('js')
@@ -165,13 +174,56 @@
                         name: 'updated_at'
                     },
                     {
-                        data: 'action',
-                        name: 'action'
-                    }
+                        data: null,
+                        className: "dt-center editor-submit",
+                        defaultContent: "<button type='submit'class='btn btn-primary btn-block'><i class='fas fa-key'></i></button>",
+                        orderable: false
+                    },
 
+                    {
+                        data: null,
+                        className: "dt-center editor-delete",
+                        defaultContent: "<button type='submit'class='btn btn-outline-danger btn-block'><i class='fas fa-trash'></i></button>",
+                        orderable: false
+                    },
                 ],
             });
 
+            $('#table_task').on('click', 'td.editor-submit', function (e) {
+                var data = table.row($(this).closest('tr')).data()
+                if (confirm('Apakah Anda Yakin Ingin Submit Masal?')) {
+                    var newarray = [];
+                    newarray.push(data);
+                    var sData = newarray.join();
+                    $.ajax({
+                        url: "/report/mass_update",
+                        type: "PATCH",
+                        data: {
+                            _token: $("#csrf").val(),
+                            reports: newarray,
+                            status_id: 2
+
+                        },
+                        cache: false,
+                        success: function (dataResult) {
+
+                            var dataResult = JSON.parse(JSON.stringify(dataResult));
+
+                            if (dataResult.statusCode == 200) {
+                                table.ajax.reload();
+                                alert(dataResult.messege);
+                            } else if (dataResult.statusCode == 201) {
+                                alert(dataResult.messege);
+                            }
+
+                        },
+                        error: function (err, errCode, errMessage) {
+                            console.log("S");
+                            alert("Tidak Ada Data Dipilih");
+                        }
+                    });
+                }
+            });
 
             $('#buttonSubmit').click(function () {
                 var data = table.rows({selected: true}).data()

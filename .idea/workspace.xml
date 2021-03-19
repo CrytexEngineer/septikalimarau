@@ -2,17 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="824dbded-0227-432a-97fe-96ce5d4582bd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Export/MassReportExporter.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Export/MassReportSheet.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/reject_warning.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Export/ReportExporter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Export/ReportExporter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ItemsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ItemsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ReportController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ReportController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/material/css/material-dashboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/material/css/material-dashboard.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/item/create.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/item/edit.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/item/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/item/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/record/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/record/create.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/report/archive.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/report/archive.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/report/create.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/report/edit.blade.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/report/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/report/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/report/reject.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/report/reject.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/report/review.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/report/review.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/task/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/task/index.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,19 +191,19 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="F:\Arsip Kerja\simbandara\app\Http\Controllers" />
-      <recent name="F:\Arsip Kerja\simbandara\app\Export" />
-      <recent name="F:\Arsip Kerja\simbandara\app" />
-      <recent name="F:\Arsip Kerja\simbandara\public\material\img" />
-      <recent name="F:\Arsip Kerja\simbandara\resources\views" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="F:\Arsip Kerja\septikalimarau\app\Export" />
       <recent name="F:\Arsip Kerja\septikalimarau\resources\views\report" />
       <recent name="F:\Arsip Kerja\septikalimarau\public\css" />
       <recent name="F:\Arsip Kerja\simbandara\resources\views\record" />
       <recent name="F:\Arsip Kerja\simbandara\app\Http\Controllers\Auth" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\Arsip Kerja\septikalimarau\resources\views" />
+      <recent name="F:\Arsip Kerja\simbandara\app\Http\Controllers" />
+      <recent name="F:\Arsip Kerja\simbandara\app\Export" />
+      <recent name="F:\Arsip Kerja\simbandara\app" />
+      <recent name="F:\Arsip Kerja\simbandara\public\material\img" />
     </key>
   </component>
   <component name="RunManager">
@@ -313,7 +318,9 @@
       <workItem from="1614875040647" duration="3039000" />
       <workItem from="1615124502935" duration="7720000" />
       <workItem from="1615210818606" duration="4566000" />
-      <workItem from="1615787773109" duration="10988000" />
+      <workItem from="1615787773109" duration="12065000" />
+      <workItem from="1615945900227" duration="2026000" />
+      <workItem from="1616136723340" duration="20714000" />
     </task>
     <servers />
   </component>
@@ -321,10 +328,6 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="137" y="21" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1607403915325">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="137" y="21" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1607403915325" />
     <state x="437" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1612147918438">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -361,12 +364,12 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1610869436832" />
-    <state x="391" y="191" key="com.intellij.ide.util.TipDialog" timestamp="1614875046241">
+    <state x="391" y="191" key="com.intellij.ide.util.TipDialog" timestamp="1616136861811">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="391" y="191" key="com.intellij.ide.util.TipDialog/0.0.1366.728/-1600.0.1600.860@0.0.1366.728" timestamp="1613868283100" />
-    <state x="391" y="191" key="com.intellij.ide.util.TipDialog/0.0.1366.728/-1920.0.1920.1040@0.0.1366.728" timestamp="1614875046241" />
-    <state x="391" y="191" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1614305523121" />
+    <state x="391" y="191" key="com.intellij.ide.util.TipDialog/0.0.1366.728/-1920.0.1920.1040@0.0.1366.728" timestamp="1616136861811" />
+    <state x="391" y="191" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1615945966951" />
     <state x="-1243" y="0" width="968" height="595" maximized="true" key="dock-window-1" timestamp="1615124512163">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
@@ -374,11 +377,11 @@
     <state x="676" y="0" width="697" height="735" key="dock-window-1/0.0.1366.728/-1600.0.1600.860@0.0.1366.728" timestamp="1613404309258" />
     <state x="-1243" y="0" width="968" height="595" maximized="true" key="dock-window-1/0.0.1366.728/-1920.0.1920.1040@0.0.1366.728" timestamp="1615124512163" />
     <state x="-7" y="0" width="697" height="735" key="dock-window-1/0.0.1366.728@0.0.1366.728" timestamp="1614570752262" />
-    <state x="390" y="125" width="607" height="526" key="find.popup" timestamp="1615825392711">
+    <state x="390" y="125" width="607" height="526" key="find.popup" timestamp="1616152159016">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="390" y="125" width="607" height="526" key="find.popup/0.0.1366.728/-1600.0.1600.860@0.0.1366.728" timestamp="1613288351526" />
-    <state x="390" y="125" width="607" height="526" key="find.popup/0.0.1366.728/-1920.0.1920.1040@0.0.1366.728" timestamp="1615825392711" />
+    <state x="390" y="125" width="607" height="526" key="find.popup/0.0.1366.728/-1920.0.1920.1040@0.0.1366.728" timestamp="1616152159016" />
     <state x="390" y="125" width="607" height="526" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1614306372265" />
     <state x="339" y="162" key="run.anything.popup" timestamp="1613946904739">
       <screen x="0" y="0" width="1366" height="728" />
@@ -399,13 +402,8 @@
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/resources/views/report/create.blade.php</url>
-          <line>14</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/ReportController.php</url>
-          <line>112</line>
+          <line>113</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
@@ -425,7 +423,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/resources/views/report/review.blade.php</url>
-          <line>25</line>
+          <line>33</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
@@ -435,13 +433,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/resources/views/report/index.blade.php</url>
-          <line>54</line>
+          <line>51</line>
           <option name="timeStamp" value="14" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/resources/views/report/review.blade.php</url>
-          <line>10</line>
-          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

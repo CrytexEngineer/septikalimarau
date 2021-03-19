@@ -213,21 +213,23 @@
                             </tbody>
                         </table>
                     </div>
+                    <br>
                     <input type="submit" value="Simpan " class="btn btn-primary">
+                    @if($status=='Active')
+                        <a href="/report">
+                            <button class="btn btn-outline-primary">Kembali</button>
+                        </a>
+                    @elseif($status=='Rejected')
+                        <a href="/report/reject">
+                            <button class="btn  btn-outline-primary">Kembali</button>
+                        </a>
+                    @elseif($status=='Submitted')
+                        <a href="/report/review">
+                            <button class="btn  btn-outline-primary">Kembali</button>
+                        </a>
+                    @endif
                 </form>
-                @if($status=='Active')
-                    <a href="/report">
-                        <button class="btn btn-info">Kembali</button>
-                    </a>
-                @elseif($status=='Rejected')
-                    <a href="/report/reject">
-                        <button class="btn btn-info">Kembali</button>
-                    </a>
-                @elseif($status=='Submitted')
-                    <a href="/report/review">
-                        <button class="btn btn-info">Kembali</button>
-                    </a>
-                @endif
+
             </div>
         </div>
     </div>
