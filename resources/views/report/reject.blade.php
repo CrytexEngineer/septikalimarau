@@ -12,23 +12,30 @@
 
                     </div>
                     <div class="card-body">
-                        <div class="row">
-                            @can('management')
-                                <div class="col">
-                                    <p class="card-category">Filter Unit</p>
-                                    {{ Form::select('filter_unit_id',$unit,null,['class'=>'form-control','placeholder'=>'Pilih Unit','id'=>'filter_unit_id'])}}
-                                </div>
-                            @endcan('management')
-                            <div class="col">
-                                <p class="card-category">Filter Tanggal</p>
-                                {{ Form::select('filter_tanggal',$created_at,null,['class'=>'form-control','id'=>'filter_tanggal'])}}
-                            </div>
-                        </div>
-                        <br>
-                        <br>
-                        <button id="buttonSubmit" name="buttonSubmit" class="btn btn-primary ">  Submit Masal</button>
-                        <button id="buttonDelete" name="buttonDelete" class="btn btn-outline-danger">  Hapus Masal</button>
                         <div class="table-responsive">
+                            <div class="row">
+                                @can('management')
+                                    <div class="col">
+                                        <p class="card-category">Filter Unit</p>
+                                        {{ Form::select('filter_unit_id',$unit,null,['class'=>'form-control','placeholder'=>'Pilih Unit','id'=>'filter_unit_id'])}}
+                                    </div>
+                                @endcan('management')
+                                <div class="col">
+                                    <p class="card-category">Filter Tanggal</p>
+                                    {{ Form::select('filter_tanggal',$created_at,null,['class'=>'form-control','id'=>'filter_tanggal'])}}
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                            <div class="row">
+                                <div class="d-grid gap-2 d-md-block">
+                                    <button id="buttonSubmit" name="buttonSubmit" class="btn btn-primary"> Submit Masal
+                                    </button>
+                                    <button id="buttonDelete" name="buttonDelete" class="btn btn-outline-danger"> Hapus
+                                        Masal
+                                    </button>
+                                </div>
+                            </div>
                             <table class="display  compact" id="table_task">
                                 <thead class=" text-primary">
                                 <th>
@@ -50,12 +57,15 @@
                                     Diperbaharui
                                 </th>
                                 <th>
-                                    Aksi
+                                </th>
+                                <th>
+                                </th>
+                                <th>
                                 </th>
                                 </thead>
 
                             </table>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -101,10 +111,98 @@
                     {data: 'task_name', name: 'task_name'},
                     {data: 'created_at', name: 'created_at'},
                     {data: 'updated_at', name: 'updated_at'},
-                    {data: 'action', name: 'action'}
+                    {
+                        data: 'action',
+                        className: "dt-center editor-edit",
+                        orderable: false
+                    },
+                    {
+                        data: null,
+                        className: "dt-center editor-submit",
+                        defaultContent: "<button type='submit'class='btn btn-primary btn-block'><i class='fas fa-key'></i></button>",
+                        orderable: false
+                    },
+
+                    {
+                        data: null,
+                        className: "dt-center editor-delete",
+                        defaultContent: "<button type='submit'class='btn btn-outline-danger btn-block'><i class='fas fa-trash'></i></button>",
+                        orderable: false
+                    },
 
                 ],
             });
+
+            $('#table_task').on('click', 'td.editor-submit', function (e) {
+                e.preventDefault();
+                var data = table.row($(this).closest('tr')).data()
+                if (confirm('Apakah Anda Yakin Ingin Submit?')) {
+                    var newarray = [];
+                    newarray.push(data);
+                    $.ajax({
+                        url: "/report/mass_update",
+                        type: "PATCH",
+                        data: {
+                            _token: $("#csrf").val(),
+                            reports: newarray,
+                            status_id: 2
+
+                        },
+                        cache: false,
+                        success: function (dataResult) {
+
+                            var dataResult = JSON.parse(JSON.stringify(dataResult));
+
+                            if (dataResult.statusCode == 200) {
+                                table.ajax.reload();
+                                alert(dataResult.messege);
+                            } else if (dataResult.statusCode == 201) {
+                                alert(dataResult.messege);
+                            }
+
+                        },
+                        error: function (err, errCode, errMessage) {
+
+                        }
+                    });
+                }
+            });
+
+            $('#table_task').on('click', 'td.editor-delete', function (e) {
+                e.preventDefault();
+                var data = table.row($(this).closest('tr')).data()
+                if (confirm('Apakah Anda Yakin Ingin Hapus ?')) {
+                    var newarray = [];
+                    newarray.push(data);
+                }
+
+                $.ajax({
+                    url: "/report/mass_delete",
+                    type: "DELETE",
+                    data: {
+                        _token: $("#csrf").val(),
+                        reports: newarray,
+
+                    },
+                    cache: false,
+                    success: function (dataResult) {
+
+                        var dataResult = JSON.parse(JSON.stringify(dataResult));
+
+                        if (dataResult.statusCode == 200) {
+                            table.ajax.reload();
+                            alert(dataResult.messege);
+                        } else if (dataResult.statusCode == 201) {
+                            alert(dataResult.messege);
+                        }
+
+                    },
+                    error: function (err, errCode, errMessage) {
+
+                    }
+                });
+            });
+
 
             $('#buttonSubmit').click(function () {
                 var data = table.rows({selected: true}).data()

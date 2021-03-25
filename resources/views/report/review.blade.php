@@ -12,26 +12,41 @@
 
                     </div>
                     <div class="card-body">
-                        <div class="row">
 
-                            @can('management')
-                                <div class="col">
-                                    <p class="card-category">Filter Unit</p>
-                                    {{ Form::select('filter_unit_id',$unit,null,['class'=>'form-control','placeholder'=>'Pilih Unit','id'=>'filter_unit_id'])}}
-                                </div>
-                            @endcan('management')
-                            <div class="col">
-                                <p class="card-category">Filter Tanggal</p>
-                                {{ Form::select('filter_tanggal',$created_at,null,['class'=>'form-control','id'=>'filter_tanggal'])}}
-                            </div>
-                        </div>
-                        <br>
-                        <br>
-                        @can('admin')
-                            <button id="buttonApprove" name="buttonApprove"  class="btn btn-primary">Arsip Masal</button>
-                            <button id="buttonReject" name="buttonReject"  class="btn btn-outline-danger">Tolak Masal</button>
-                        @endcan
                         <div class="table-responsive">
+                            <div class="row">
+
+                                @can('management')
+                                    <div class="col">
+                                        <p class="card-category">Filter Unit</p>
+                                        {{ Form::select('filter_unit_id',$unit,null,['class'=>'form-control','placeholder'=>'Pilih Unit','id'=>'filter_unit_id'])}}
+                                    </div>
+                                @endcan('management')
+                                <div class="col">
+                                    <p class="card-category">Filter Tanggal</p>
+                                    {{ Form::select('filter_tanggal',$created_at,null,['class'=>'form-control','id'=>'filter_tanggal'])}}
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                            @can('admin')
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="d-grid gap-2 d-md-block">
+                                            <button id="buttonApprove" name="buttonApprove" class="btn btn-primary">
+                                                Arsip
+                                                Masal
+                                            </button>
+                                            <button id="buttonReject" name="buttonReject"
+                                                    class="btn btn-outline-danger">
+                                                Tolak
+                                                Masal
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endcan
+
                             <table class="display  compact" id="table_task">
                                 <thead class=" text-primary">
                                 <th>
@@ -53,8 +68,13 @@
                                     Diperbaharui
                                 </th>
                                 <th>
-                                    Aksi
+                                    @can('admin')
                                 </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                @endcan
                                 </thead>
 
                             </table>
@@ -99,10 +119,99 @@
                     {data: "task_name", name: "task_name"},
                     {data: "created_at", name: "created_at"},
                     {data: "updated_at", name: "updated_at"},
-                    {data: "action", name: "action"},
+                    {
+                        data: 'action',
+                        className: "dt-center editor-edit",
+                        orderable: false
+                    },
+                        @can('admin')
+                    {
+                        data: null,
+                        className: "dt-center editor-approve",
+                        defaultContent: "<button type='submit'class='btn btn-primary btn-block'><i class='fas fa-check'></i></button>",
+                        orderable: false
+                    },
+                    {
+                        data: null,
+                        className: "dt-center editor-reject",
+                        defaultContent: "<button type='submit'class='btn btn-outline-danger btn-block'><i class='fas fa-times-circle'></i></button>",
+                        orderable: false
+                    },
+                    @endcan
                 ],
             });
 
+
+            $('#table_task').on('click', 'td.editor-approve', function (e) {
+                e.preventDefault();
+                var data = table.row($(this).closest('tr')).data()
+                if (confirm('Apakah Anda Yakin Ingin Arsip?')) {
+                    var newarray = [];
+                    newarray.push(data);
+                    $.ajax({
+                        url: "/report/mass_update",
+                        type: "PATCH",
+                        data: {
+                            _token: $("#csrf").val(),
+                            reports: newarray,
+                            status_id: 5
+
+                        },
+                        cache: false,
+                        success: function (dataResult) {
+
+                            var dataResult = JSON.parse(JSON.stringify(dataResult));
+
+                            if (dataResult.statusCode == 200) {
+                                table.ajax.reload();
+                                alert(dataResult.messege);
+                            } else if (dataResult.statusCode == 201) {
+                                alert(dataResult.messege);
+                            }
+
+                        },
+                        error: function (err, errCode, errMessage) {
+
+                        }
+                    });
+                }
+            });
+
+            $('#table_task').on('click', 'td.editor-reject', function (e) {
+                e.preventDefault();
+                var data = table.row($(this).closest('tr')).data()
+                if (confirm('Apakah Anda Yakin Ingin Tolak ?')) {
+                    var newarray = [];
+                    newarray.push(data);
+                }
+
+                $.ajax({
+                    url: "/report/mass_update",
+                    type: "PATCH",
+                    data: {
+                        _token: $("#csrf").val(),
+                        reports: newarray,
+                        status_id: 6
+
+                    },
+                    cache: false,
+                    success: function (dataResult) {
+
+                        var dataResult = JSON.parse(JSON.stringify(dataResult));
+
+                        if (dataResult.statusCode == 200) {
+                            table.ajax.reload();
+                            alert(dataResult.messege);
+                        } else if (dataResult.statusCode == 201) {
+                            alert(dataResult.messege);
+                        }
+
+                    },
+                    error: function (err, errCode, errMessage) {
+
+                    }
+                });
+            });
 
             $("#buttonApprove").click(function () {
                 var data = table.rows({selected: true}).data();
@@ -178,6 +287,7 @@
             $(document).ready(function () {
                 var openRows = [];
                 $("#filter_unit_id").val($("#filter_unit_id option:last").val());
+
                 function closeOpenedRows(table, selectedRow) {
                     $.each(openRows, function (index, openRow) {
                         // not the selected row!
@@ -218,7 +328,7 @@
                                 id: row.data().id
                             },
                             success: function (data) {
-                                row.child(format(row.data(),data)).show();
+                                row.child(format(row.data(), data)).show();
                             }
                         });
 

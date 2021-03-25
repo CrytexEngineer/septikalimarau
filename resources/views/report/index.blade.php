@@ -71,10 +71,16 @@
                             </div>
                             <br>
                             <br>
-                            <button id="buttonSubmit" name="buttonSubmit" class="btn btn-primary "> Submit Masal
-                            </button>
-                            <button id="buttonDelete" name="buttonDelete" class="btn btn-outline-danger"> Hapus Masal
-                            </button>
+                            <div class="row">
+                                <div class="d-grid gap-2 d-md-block">
+                                    <button id="buttonSubmit" name="buttonSubmit" class="btn btn-primary"> Submit Masal
+                                    </button>
+                                    <button id="buttonDelete" name="buttonDelete" class="btn btn-outline-danger"> Hapus
+                                        Masal
+                                    </button>
+                                </div>
+                            </div>
+
                             <table class="display  compact" id="table_task">
                                 <thead class=" text-primary">
                                 <th>Detail</th>
@@ -92,6 +98,8 @@
                                 </th>
                                 <th>
                                     Diperbaharui
+                                </th>
+                                <th>
                                 </th>
                                 <th>
                                 </th>
@@ -116,18 +124,9 @@
 
 
             var table = $('#table_task').DataTable({
-                "columnDefs": [
 
-                    {
-                        "width": "500px",
-                        "targets": 4
-                    },
-
-                ],
-                "order": [],
-                fixedColumns: true,
                 processing: true,
-                serverSide: false,
+                serverSide: true,
                 ajax: {
                     "url": '/report/json',
                     "data": function (d) {
@@ -174,6 +173,11 @@
                         name: 'updated_at'
                     },
                     {
+                        data: 'action',
+                        className: "dt-center editor-edit",
+                        orderable: false
+                    },
+                    {
                         data: null,
                         className: "dt-center editor-submit",
                         defaultContent: "<button type='submit'class='btn btn-primary btn-block'><i class='fas fa-key'></i></button>",
@@ -190,11 +194,11 @@
             });
 
             $('#table_task').on('click', 'td.editor-submit', function (e) {
+                e.preventDefault();
                 var data = table.row($(this).closest('tr')).data()
-                if (confirm('Apakah Anda Yakin Ingin Submit Masal?')) {
+                if (confirm('Apakah Anda Yakin Ingin Submit?')) {
                     var newarray = [];
                     newarray.push(data);
-                    var sData = newarray.join();
                     $.ajax({
                         url: "/report/mass_update",
                         type: "PATCH",
@@ -218,11 +222,45 @@
 
                         },
                         error: function (err, errCode, errMessage) {
-                            console.log("S");
-                            alert("Tidak Ada Data Dipilih");
+
                         }
                     });
                 }
+            });
+
+            $('#table_task').on('click', 'td.editor-delete', function (e) {
+                e.preventDefault();
+                var data = table.row($(this).closest('tr')).data()
+                if (confirm('Apakah Anda Yakin Ingin Hapus ?')) {
+                    var newarray = [];
+                    newarray.push(data);
+                }
+
+                $.ajax({
+                    url: "/report/mass_delete",
+                    type: "DELETE",
+                    data: {
+                        _token: $("#csrf").val(),
+                        reports: newarray,
+
+                    },
+                    cache: false,
+                    success: function (dataResult) {
+
+                        var dataResult = JSON.parse(JSON.stringify(dataResult));
+
+                        if (dataResult.statusCode == 200) {
+                            table.ajax.reload();
+                            alert(dataResult.messege);
+                        } else if (dataResult.statusCode == 201) {
+                            alert(dataResult.messege);
+                        }
+
+                    },
+                    error: function (err, errCode, errMessage) {
+
+                    }
+                });
             });
 
             $('#buttonSubmit').click(function () {
@@ -258,7 +296,7 @@
 
                         },
                         error: function (err, errCode, errMessage) {
-                            console.log("S");
+
                             alert("Tidak Ada Data Dipilih");
                         }
                     });
@@ -297,7 +335,7 @@
 
                         },
                         error: function (err, errCode, errMessage) {
-                            console.log("S");
+
                             alert("Tidak Ada Data Dipilih");
                         }
                     });
