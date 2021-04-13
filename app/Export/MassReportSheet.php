@@ -156,9 +156,9 @@ class MassReportSheet implements WithEvents, WithStrictNullComparison, ShouldAut
                     $sheet->getColumnDimension("C")->setWidth(20);
                     $sheet->getColumnDimension("D")->setWidth(20);
 
-                    $sheet->getStyle('B1:B' . $sheet->getHighestRow())
-                        ->getAlignment()->setWrapText(true);
 
+                    $sheet->getStyle('B1:I' . $sheet->getHighestRow())
+                        ->getAlignment()->setWrapText(true);
 
                     //Merge cell
                     $cellToMerge = [

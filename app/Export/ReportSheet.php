@@ -182,6 +182,10 @@ class ReportSheet implements WithEvents, WithStrictNullComparison, ShouldAutoSiz
 
                 try {
                     $sheet->getStyle('A1:I' . ($row + 6))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
+
+                    $sheet->getStyle('B1:I' . $sheet->getHighestRow())
+                        ->getAlignment()->setWrapText(true);
+                    
                 } catch (Exception $e) {
                     dd($e);
                 }

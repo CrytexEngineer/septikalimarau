@@ -51,10 +51,16 @@ class MassImagesSheet implements WithEvents, WithStrictNullComparison, ShouldAut
             $sheet->getColumnDimension("A")->setWidth(50);
             $sheet->getColumnDimension("B")->setWidth(50);
             $sheet->getColumnDimension("C")->setWidth(50);
+            $sheet->getColumnDimension("D")->setWidth(50);
             $sheet->setCellValue('A1', "No");
             $sheet->setCellValue('B1', "Gambar");
-            $sheet->setCellValue('C1', "Waktu Pengambilan");
-            $sheet->setCellValue('D1', "Timestamp");
+            $sheet->setCellValue('C1', "Keterangan");
+            $sheet->setCellValue('D1', "Waktu Pengambilan");
+            $sheet->getStyle('D1:D' . $sheet->getHighestRow())
+                ->getAlignment()->setWrapText(true);
+            $sheet->getStyle('B1:I' . $sheet->getHighestRow())
+                ->getAlignment()->setWrapText(true);
+
 
             //populate data
             foreach ($this->reports as $report) {
