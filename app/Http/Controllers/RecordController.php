@@ -87,15 +87,17 @@ class RecordController extends Controller
     }
 
     public function show($id)
-    {
+    {   $report = Report::where('id', '=', $id)->get();
         date_default_timezone_set("Asia/Kuala_Lumpur");
         $currentTime = strtotime(date('Y-m-d H:i:s'));
+        $currentDate= date('Y-m-d');
         $jamSiang = strtotime("12:00:00");
+        $isSameDate=($currentDate == $report->first()->created_at->toDateString());
 
 
-        $report = Report::where('id', '=', $id)->get();
 
-        //cek jam sekarang>12.00
+        //Role and Time Based Filling Form Policy
+        $data['isPetugas']=(Auth::user()->role_id==4);
         $data['isJamSiang'] = $currentTime > $jamSiang;
         $data['report'] = $report;
         $data['records'] = Record::where('report_id', '=', $id)->join("items", "records.item_id", "=", "items.id")->get()->all();
@@ -119,9 +121,15 @@ class RecordController extends Controller
 
 
 
-        if ($report->first()->status_id == 1||$report->first()->status_id==6) {
+
+        if (($report->first()->status_id == 1||$report->first()->status_id==6)&& $isSameDate) {
 
             return view("record.create", $data);
+
+        }
+        if (($report->first()->status_id == 1||$report->first()->status_id==6)&& Auth::user()->hasAnyRoles(['Admin', 'Kasi','Kanit'])) {
+            return view("record.create", $data);
+
         }
         if ($report->first()->status_id == 2 && Auth::user()->hasAnyRoles(['Admin', 'Kasi'])) {
             return view("record.create", $data);

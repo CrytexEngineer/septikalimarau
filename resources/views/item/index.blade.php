@@ -72,6 +72,7 @@
                         </div>
                     </div>
                 </div>
+                <a href="/task" class="btn btn-outline-primary">Kembali</a>
             </div>
 
         </div>

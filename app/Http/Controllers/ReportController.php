@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Export\MassReportExporter;
 use App\Export\ReportExporter;
-use App\Exports\StudentBySubjectExport;
 use App\Models\Images;
 use App\Models\Report;
 use App\Models\Task;
@@ -39,8 +39,8 @@ class ReportController extends Controller
                 DB::raw('COUNT(images.report_id) as jumlahGambar'))
                 ->leftJoin('units', 'reports.unit_id', '=', 'units.id')
                 ->join('tasks', 'reports.task_id', "=", "tasks.id")
-                ->leftJoin(DB::raw('(select id,name from users) as petugas_pagi'), 'petugas_pagi.id', '=', 'reports.petugas_pagi_id')
-                ->leftJoin(DB::raw('(select id,name from users) as petugas_siang'), 'petugas_siang.id', '=', 'reports.petugas_siang_id')
+                ->leftJoin('users as petugas_pagi', 'petugas_pagi.id', '=', 'reports.petugas_pagi_id')
+                ->leftJoin('users as petugas_siang', 'petugas_siang.id', '=', 'reports.petugas_siang_id')
                 ->leftjoin('images', 'reports.id', '=', 'images.report_id')
                 ->where("reports.status_id", "=", $request->input("status_id"))
                 ->where('reports.unit_id', '=', Auth::user()->unit_id);
@@ -61,10 +61,11 @@ class ReportController extends Controller
                 DB::raw('COUNT(images.report_id) as jumlahGambar'))
                 ->leftJoin('units', 'reports.unit_id', '=', 'units.id')
                 ->join('tasks', 'reports.task_id', "=", "tasks.id")
-                ->leftJoin(DB::raw('(select id,name from users) as petugas_pagi'), 'petugas_pagi.id', '=', 'reports.petugas_pagi_id')
-                ->leftJoin(DB::raw('(select id,name from users) as petugas_siang'), 'petugas_siang.id', '=', 'reports.petugas_siang_id')
+                ->leftJoin('users as petugas_pagi', 'petugas_pagi.id', '=', 'reports.petugas_pagi_id')
+                ->leftJoin('users as petugas_siang', 'petugas_siang.id', '=', 'reports.petugas_siang_id')
                 ->leftJoin('images', 'reports.id', '=', 'images.report_id')
                 ->where("reports.status_id", "=", $request->input("status_id"));
+
 
             if ($request->filter_tanggal && $request->filter_tanggal != "ALL") {
                 $this->reports = $this->reports->whereDate('reports.created_at', Carbon::createFromFormat('d-m-Y', $request->filter_tanggal)->isoFormat('Y-MM-D'));
@@ -89,6 +90,7 @@ class ReportController extends Controller
             $report->created_at = Carbon::createFromFormat('Y-m-d H:i:s', $report->created_at)->isoFormat('dddd, D MMMM Y/HH:mm');
             $report->updated_at = Carbon::createFromFormat('Y-m-d H:i:s', $report->updated_at)->isoFormat('dddd, D MMMM Y/HH:mm');
         }
+
 
         return DataTables::of($this->reports)->addColumn('action', function ($row) {
 
@@ -169,8 +171,8 @@ class ReportController extends Controller
 
     public function archive()
     {
-        $creationdates = DB::table('reports')->select(DB::raw('DATE_FORMAT(reports.created_at,"%d-%m-%Y") as created_at'))->distinct()->orderBy('reports.created_at', 'desc')->limit(10)->pluck('created_at');
-        $creationdates['ALL'] = 'ALL';
+        $creationdates = DB::table('reports')->select(DB::raw('DATE_FORMAT(reports.created_at,"%d-%m-%Y") as created_at'))->distinct()->orderBy('reports.created_at', 'desc')->pluck('created_at');
+//        $creationdates['ALL'] = 'ALL';
         foreach ($creationdates as $key => $value) {
             $creationdates[$key] = $value;
         }
@@ -436,6 +438,8 @@ class ReportController extends Controller
 
     public function saveExport($id)
     {
+
+
         $unit = Report::where('reports.id', $id)->join('units', 'reports.unit_id', '=', 'units.id')->get()->first()['unit_name'];
         $task = Report::where('reports.id', $id)->join('tasks', 'reports.task_id', '=', 'tasks.id')->get()->first()['task_name'];
         $date = date("y:m:d", strtotime(Report::where('id', $id)->get()->first()['created_at']));
@@ -443,11 +447,23 @@ class ReportController extends Controller
 
         return Excel::download(new ReportExporter($id), $unit . '-' . $task . '-' . $date . '.xlsx');
 
+
     }
 
     public function mass_export(Request $request)
     {
-        $report = Report::where('reports.unit_id', '=', $request->unit_id)->get()->all();
-        return $report;
+
+        $unit = Report::where('reports.id', $request->filter_unit_unduh)->join('units', 'reports.unit_id', '=', 'units.id')->get()->first()['unit_name'];
+        $reports = Report::where('reports.unit_id', '=', $request->filter_unit_unduh)
+            ->whereBetween('reports.created_at', [Carbon::createFromFormat('d-m-Y', $request->tanggal_mulai)->isoFormat('Y-MM-D'), Carbon::createFromFormat('d-m-Y', $request->tanggal_selesai)->isoFormat('Y-MM-D')])
+            ->where('reports.status_id', '=', 5)->get()->all();
+
+        if (!$reports) {
+
+            return redirect()->back()->withErrors('Data Tidak Tersedia');
+        }
+        return Excel::download(new MassReportExporter($reports), $unit . '-' . $request->tanggal_mulai . '-' . $request->tanggal_selesai . '.xlsx');
+
+
     }
 }

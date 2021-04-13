@@ -341,7 +341,7 @@
 
                 table.on('draw', function () {
                     $.each(openRows, function (i, id) {
-                        $('#' + id + ' td.details-control').trigger('click');
+                        $('#id' + ' td.details-control').trigger('click');
                     });
                 });
 

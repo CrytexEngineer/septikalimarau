@@ -127,8 +127,10 @@ class ReportSheet implements WithEvents, WithStrictNullComparison, ShouldAutoSiz
                 $sheet->setCellValue('A' . ($row + 1), "PETUGAS");
                 $sheet->setCellValue('A' . ($row + 3), "KANIT");
                 $sheet->setCellValue('A' . ($row + 5), "KASI");
-                $petugas = User::where('id', $this->report['petugas_id'])->get()->first();
-                $sheet->setCellValue('C' . ($row + 1), $petugas['name']);
+                $petugasPagi = User::where('id', $this->report['petugas_pagi_id'])->get()->first();
+                $petugasSiang = User::where('id', $this->report['petugas_siang_id'])->get()->first();
+                $sheet->setCellValue('C' . ($row + 1), $petugasPagi['name']);
+                $sheet->setCellValue('D' . ($row + 1), $petugasSiang['name']);
                 $kanit = User::where('id', $this->report['kanit_id'])->get()->first();
                 $sheet->setCellValue('C' . ($row + 3), $kanit['name']);
                 $kasi = User::where('id', $this->report['kasi_id'])->get()->first();

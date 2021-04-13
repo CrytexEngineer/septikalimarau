@@ -20,13 +20,13 @@
 
             </ul>
         </nav>
-        <div class="copyright float-center">
+        <div class="copyright center">
             &copy;
             <script>
             document.write(new Date().getFullYear())
 
             </script>
-            , Dibuat Dengan <i class="material-icons">favorite</i> Tata Usaha Bandar Udara Kalimarau
+            , Dibuat Dengan <i class="material-icons">favorite</i> Teknik Operasi Bandar Udara Kalimarau
         </div>
     </div>
 </footer>

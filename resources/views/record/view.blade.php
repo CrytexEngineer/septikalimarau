@@ -53,7 +53,7 @@
 
                                         <td>
                                             {{ Form::select('kondisi_pagi[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), null, array(
-                                                'class' => 'form-control','disabled','hidden'
+                                                'class' => 'form-control','disabled'
                                                 ))}}
                                         </td>
 

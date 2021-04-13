@@ -400,6 +400,12 @@
                 });
 
 
+                table.on('draw', function () {
+                    $.each(openRows, function (i, id) {
+                        $('#id' + ' td.details-control').trigger('click');
+                    });
+                });
+
                 $('#unit_id').on('change', function (e) {
                     table.ajax.reload(function (result) {
                         console.log(result);

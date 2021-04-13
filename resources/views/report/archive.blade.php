@@ -3,10 +3,45 @@
     <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
     <div class="content">
 
-
         <div class="row">
             <div class="col-md-12">
-                @include('validation_error')
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title ">Unduh Laporan Harian</h4>
+                    </div>
+                    <div class="card-body">
+                        @include('validation_error')
+                        {{ Form::open(['url'=>'report/export'])}}
+                        <div class="col">
+                            <p class="card-category">Unit</p>
+                            {{ Form::select('filter_unit_unduh',$unit,null,['class'=>'form-control','id'=>'filter_unit_unduh'])}}
+                        </div>
+                        <div class="col">
+                            <p class="card-category">Dari Tanggal </p>
+                            {{ Form::select('filter_tanggal_mulai',$created_at,null,['class'=>'form-control','id'=>'filter_tanggal_mulai'])}}
+                            {{Form::hidden('tanggal_mulai','secret',['id'=>'tanggal_mulai'])}}
+                        </div>
+                        <div class="col">
+                            <p class="card-category">Sampai Tanggal</p>
+                            {{ Form::select('filter_tanggal_selesai_',$created_at,null,['class'=>'form-control','id'=>'filter_tanggal_selesai'])}}
+                            {{Form::hidden('tanggal_selesai','secret',['id'=>'tanggal_selesai'])}}
+                        </div>
+                        <br>
+
+                        <div class="col">
+                            {{ Form::submit('unduh',['class'=>'btn btn-primary'])}}
+                        </div>
+
+                        @csrf
+
+                        {{Form::close()}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+
                 <div class="card">
                     <div class="card-header card-header-primary">
                         <h4 class="card-title ">Arsip Laporan Harian</h4>
@@ -35,9 +70,7 @@
                             </div>
                             <br>
                             <br>
-                            <button id="button_mass_download" name="button_mass_download" class="btn btn-primary">
-                                Unduh Masal
-                            </button>
+
                             <table class="display  compact" id="table_task">
                                 <thead class=" text-primary">
                                 <th>
@@ -115,8 +148,11 @@
             $(document).ready(function () {
                 // stores the open rows (detailed view)
                 var openRows = new Array();
-                $("#filter_unit_id").val($("#filter_unit_id option:last").val());
 
+                $("#filter_tanggal_mulai").val($("#filter_tanggal_mulai option:last").val());
+                $("#filter_tanggal_selesai").val($("#filter_tanggal_selesai option:first").val());
+                $('#tanggal_selesai').val( document.getElementById("filter_tanggal_selesai").options[document.getElementById("filter_tanggal_selesai").selectedIndex].text)
+                $('#tanggal_mulai').val( document.getElementById("filter_tanggal_mulai").options[document.getElementById("filter_tanggal_mulai").selectedIndex].text)
                 /**
                  * Close all previously opened rows
                  *
@@ -180,7 +216,7 @@
 
                 table.on('draw', function () {
                     $.each(openRows, function (i, id) {
-                        $('#' + id + ' td.details-control').trigger('click');
+                        $('#id' + ' td.details-control').trigger('click');
                     });
                 });
 
@@ -217,25 +253,21 @@
                 });
             });
 
-            $('#button_mass_download').on('click', function (e) {
-                $.ajax({
-                    url: "{{ route('report.mass_export') }}",
-                    type: "Post",
-                    data: {
-                        _token: $("#csrf").val(),
-                        unit_id: $('#filter_unit_id').val(),
-                        tanggal: $('#filter_tanggal').val()
-                    },
-                    success: function (data) {
-                        console.log(data)
-                    }
-
-                })
+            $("#filter_tanggal_mulai").change(function () {
+                var option = document.getElementById("filter_tanggal_mulai").options[document.getElementById("filter_tanggal_mulai").selectedIndex].text
+                $('#tanggal_mulai').val(option)
+               console.log(option)
+            });
 
 
-            })
+            $("#filter_tanggal_selesai").change(function () {
+                var option = document.getElementById("filter_tanggal_selesai").options[document.getElementById("filter_tanggal_selesai").selectedIndex].text
+                $('#tanggal_selesai').val(option)
+            });
+
 
             function format(d, data) {
+                console.log(d)
                 var petugas_pagi = (d.petugas_pagi) ? d.petugas_pagi : ' Tidak Diisi'
                 var petugas_siang = (d.petugas_siang) ? d.petugas_siang : ' Tidak Diisi'
                 var keterangan = (d.keterangan) ? d.keterangan : ' Tidak Diisi'

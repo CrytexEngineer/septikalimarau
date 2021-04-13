@@ -55,6 +55,7 @@ class ImagesSheet implements WithEvents, WithStrictNullComparison, ShouldAutoSiz
             $sheet->setCellValue('A1', "No");
             $sheet->setCellValue('B1', "Gambar");
             $sheet->setCellValue('C1', "Keterangan");
+
             //populate data
             foreach ($this->images as $image) {
 

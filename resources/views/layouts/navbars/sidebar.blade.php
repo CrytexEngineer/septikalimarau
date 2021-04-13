@@ -10,9 +10,12 @@
             <data-image><img class="center" style="width:150px " src="{{ asset('material') }}/img/logo-dishub.png">
             </data-image>
         </div>
-        <a href="https://creative-tim.com/" class="simple-text logo-normal">
+
+        <a href=# class="simple-text logo-normal">
             {{ __('Teknik Operasi') }}
         </a>
+
+
     </div>
     <div class="sidebar-wrapper">
         <ul class="nav">

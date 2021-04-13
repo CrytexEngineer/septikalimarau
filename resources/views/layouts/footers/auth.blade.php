@@ -24,11 +24,11 @@
 {{--        </li>--}}
 {{--      </ul>--}}
 {{--    </nav>--}}
-    <div class="copyright float-right">
+    <div class="copyright -center">
       &copy;
       <script>
         document.write(new Date().getFullYear())
-      </script>, Dibuat Dengan <i class="material-icons">favorite</i> Tata Usaha Bandar Udara Kalimarau
+      </script>, Dibuat Dengan <i class="material-icons">favorite</i> Teknik Operasi Bandar Udara Kalimarau
     </div>
   </div>
 </footer>

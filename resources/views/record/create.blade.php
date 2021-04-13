@@ -51,34 +51,49 @@
                                                    value="{{$item->item_name }}"
                                                    readonly>
                                         </td>
-                                        @if(!$isJamSiang)
-                                            <td>
-                                                {{ Form::select('kondisi_pagi[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), null, array(
-                                                    'class' => 'form-control'
-                                                    ))}}
-                                            </td>
-                                            <td>
-                                                {{ Form::select('kondisi_siang[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), null, array(
-                                                 'class' => 'form-control', 'disabled'
-                                                 ))}}
-                                                {{ Form::select('kondisi_siang[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), null, array(
-                                                                                            'class' => 'form-control', 'hidden'))}}
-                                            </td>
+
+                                        @if($isPetugas)
+                                            @if(!$isJamSiang)
+                                                <td>
+                                                    {{ Form::select('kondisi_pagi[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), null, array(
+                                                        'class' => 'form-control'
+                                                        ))}}
+                                                </td>
+                                                <td>
+                                                    {{ Form::select('kondisi_siang[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), null, array(
+                                                     'class' => 'form-control', 'disabled'
+                                                     ))}}
+                                                    {{ Form::select('kondisi_siang[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), null, array(
+                                                                                                'class' => 'form-control', 'hidden'))}}
+                                                </td>
+                                            @else
+                                                <td>
+                                                    {{ Form::select('kondisi_pagi[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), null, array(
+                                                        'class' => 'form-control', 'disabled'
+                                                        ))}}
+                                                    {{ Form::select('kondisi_pagi[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), null, array(
+                                                      'class' => 'form-control', 'hidden'
+                                                      ))}}
+                                                </td>
+                                                <td>
+                                                    {{ Form::select('kondisi_siang[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), null, array(
+                                                        'class' => 'form-control'
+                                                        ))}}
+                                                </td>
+                                            @endif
                                         @else
                                             <td>
                                                 {{ Form::select('kondisi_pagi[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), null, array(
-                                                    'class' => 'form-control', 'disabled'
-                                                    ))}}
-                                                {{ Form::select('kondisi_pagi[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), null, array(
-                                                  'class' => 'form-control', 'hidden'
-                                                  ))}}
+                                                      'class' => 'form-control'
+                                                      ))}}
                                             </td>
                                             <td>
                                                 {{ Form::select('kondisi_siang[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), null, array(
-                                                    'class' => 'form-control'
-                                                    ))}}
+                                                            'class' => 'form-control'
+                                                            ))}}
                                             </td>
                                         @endif
+
                                     </tr>
                                 @endforeach
                             @endif
@@ -96,39 +111,54 @@
                                                    readonly>
                                             {{$record->item_name}}
                                         </td>
-                                        @if(!$isJamSiang)
-                                            <td>
-                                                {{ Form::select('kondisi_pagi[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), $record->kondisi_pagi, array(
-                                                    'class' => 'form-control'
-                                                    ))}}
-                                            </td>
-                                            <td>
-                                                {{ Form::select('kondisi_siang[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), $record->kondisi_siang, array(
-                                                    'class' => 'form-control', 'disabled'
-                                                    ))}}
-                                                {{ Form::select('kondisi_siang[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), $record->kondisi_siang, array(
-                                                  'class' => 'form-control', 'hidden'
-                                                  ))}}
 
-                                            </td>
+                                        @if($isPetugas)
+                                            @if(!$isJamSiang)
+                                                <td>
+                                                    {{ Form::select('kondisi_pagi[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), $record->kondisi_pagi, array(
+                                                        'class' => 'form-control'
+                                                        ))}}
+                                                </td>
+                                                <td>
+                                                    {{ Form::select('kondisi_siang[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), $record->kondisi_siang, array(
+                                                        'class' => 'form-control', 'disabled'
+                                                        ))}}
+                                                    {{ Form::select('kondisi_siang[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), $record->kondisi_siang, array(
+                                                      'class' => 'form-control', 'hidden'
+                                                      ))}}
 
+                                                </td>
+
+                                            @else
+                                                <td>
+                                                    {{ Form::select('kondisi_pagi[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), $record->kondisi_pagi, array(
+                                                        'class' => 'form-control', 'disabled'
+                                                        ))}}
+                                                    {{ Form::select('kondisi_pagi[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), $record->kondisi_pagi, array(
+                                                     'class' => 'form-control', 'hidden'
+                                                     ))}}
+                                                </td>
+
+                                                <td>
+                                                    {{ Form::select('kondisi_siang[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), $record->kondisi_siang, array(
+                                                        'class' => 'form-control'
+                                                        ))}}
+                                                </td>
+                                            @endif
                                         @else
                                             <td>
-                                                {{ Form::select('kondisi_pagi[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), $record->kondisi_pagi, array(
-                                                    'class' => 'form-control', 'disabled'
-                                                    ))}}
-                                                {{ Form::select('kondisi_pagi[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), $record->kondisi_pagi, array(
-                                                 'class' => 'form-control', 'hidden'
-                                                 ))}}
+                                                {{ Form::select('kondisi_pagi[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), null, array(
+                                               'class' => 'form-control'
+                                               ))}}
+                                            </td>
+                                            <td>
+                                                {{ Form::select('kondisi_siang[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), null, array(
+                                                           'class' => 'form-control'
+                                                           ))}}
                                             </td>
 
-                                            <td>
-                                                {{ Form::select('kondisi_siang[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), $record->kondisi_siang, array(
-                                                    'class' => 'form-control'
-                                                    ))}}
-                                            </td>
-                                        @endif
                                     </tr>
+                                    @endif
                                 @endforeach
                             @endif
 
@@ -138,15 +168,43 @@
 
 
                     <div class="row">
-                        <div class="col-sm-3">
-                            <label>Petugas Pagi</label>
+                        @if($isPetugas)
+                            @if(!$isJamSiang)
+                                <div class="col-sm-3">
+                                    <label>Petugas Pagi</label>
+                                    {{ Form::select('petugas_pagi_id',$petugas,$selectedPetugasPagi?$selectedPetugasPagi->id:null,['class'=>'form-control','placeholder'=>'Pilih Petugas','id'=>'id'])}}
 
-                            {{ Form::select('petugas_pagi_id',$petugas,$selectedPetugasPagi?$selectedPetugasPagi->id:null,['class'=>'form-control','placeholder'=>'Pilih Petugas','id'=>'id'])}}
-                        </div>
-                        <div class="col-sm-3">
-                            <label>Petugas Siang</label>
-                            {{ Form::select('petugas_siang_id',$petugas,$selectedPetugasSiang?$selectedPetugasSiang->id:null,['class'=>'form-control','placeholder'=>'Pilih Petugas','id'=>'id'])}}
-                        </div>
+                                </div>
+                                <didv class="col-sm-3">
+                                    <label>Petugas Siang</label>
+                                    {{ Form::select('petugas_siang_id',$petugas,$selectedPetugasSiang?$selectedPetugasSiang->id:null,['class'=>'form-control','placeholder'=>'Pilih Petugas','id'=>'id','disabled'])}}
+                                    {{ Form::select('petugas_siang_id',$petugas,$selectedPetugasSiang?$selectedPetugasSiang->id:null,['class'=>'form-control','placeholder'=>'Pilih Petugas','id'=>'id','hidden'])}}
+                                </didv>
+
+                            @else
+                                <div class="col-sm-3">
+                                    <label>Petugas Pagi</label>
+                                    {{ Form::select('petugas_pagi_id',$petugas,$selectedPetugasPagi?$selectedPetugasPagi->id:null,['class'=>'form-control','placeholder'=>'Pilih Petugas','id'=>'id'])}}
+
+
+                                </div>
+                                <didv class="col-sm-3">
+                                    <label>Petugas Siang</label>
+                                    {{ Form::select('petugas_siang_id',$petugas,$selectedPetugasSiang?$selectedPetugasSiang->id:null,['class'=>'form-control','placeholder'=>'Pilih Petugas','id'=>'id'])}}
+                                </didv>
+                            @endif
+                        @else
+                            <div class="col-sm-3">
+                                <label>Petugas Pagi</label>
+                                {{ Form::select('petugas_pagi_id',$petugas,$selectedPetugasPagi?$selectedPetugasPagi->id:null,['class'=>'form-control','placeholder'=>'Pilih Petugas','id'=>'id'])}}
+
+
+                            </div>
+                            <didv class="col-sm-3">
+                                <label>Petugas Siang</label>
+                                {{ Form::select('petugas_siang_id',$petugas,$selectedPetugasSiang?$selectedPetugasSiang->id:null,['class'=>'form-control','placeholder'=>'Pilih Petugas','id'=>'id'])}}
+                            </didv>
+                        @endif
                         <div class="col-sm-3">
                             <label>Kanit</label>{{ Form::select('kanit_id',$kanit,$selectedKanit?$selectedKanit->id:null,['class'=>'form-control','placeholder'=>'Pilih Kanit','id'=>'id'])}}
                         </div>
@@ -171,70 +229,70 @@
         </div>
 
         <div class="row">
-        <div class="card">
-            <div class="card-body">
-                @if($report->first()->status_id!=5)
-                    <form action="/lampiran/upload" method="POST" enctype="multipart/form-data">
+            <div class="card">
+                <div class="card-body">
+                    @if($report->first()->status_id!=5)
+                        <form action="/lampiran/upload" method="POST" enctype="multipart/form-data">
 
-                        @csrf
-                        <input type="hidden" id="report_id" name="report_id" value={{$report->first()->id }}>
-                        <b>Lampiran Gambar</b><br/>
-                        <input type="file" name="file[]" class="form-control" multiple>
-                        <input type="submit" value="Upload" class="btn btn-primary">
+                            @csrf
+                            <input type="hidden" id="report_id" name="report_id" value={{$report->first()->id }}>
+                            <b>Lampiran Gambar</b><br/>
+                            <input type="file" name="file[]" class="form-control" multiple>
+                            <input type="submit" value="Upload" class="btn btn-primary">
 
+                        </form>
+
+                    @endif
+
+                    <form action="/lampiran/update" method="POST" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        {{ method_field('PATCH') }}
+                        <div class="table-responsive">
+                            <table id="table_picture" class="">
+                                <thead>
+                                <tr>
+                                    <th>Gambar</th>
+                                    <th>Keterangan</th>
+
+                                    @if($report->first()->status_id!=5)
+                                        <th>Aksi</th>
+                                    @endif
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($gambar as $g)
+                                    @csrf
+                                    <tr>
+                                        <td><img width="150px" src="{{ url('/gambar_harian/'.$g->image_path) }}"></td>
+                                        <input type="hidden" id="image_id" name="image_id[]"
+                                               value={{$g->id }}>
+                                        <td><textarea class="form-control" rows="5" id="keterangan"
+                                                      name="keterangan[]">{{$g->keterangan}}</textarea></td>
+                                        <td><a class="btn btn-danger" href="/lampiran/hapus/{{ $g->id }}">HAPUS</a></td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <br>
+                        <input type="submit" value="Simpan " class="btn btn-primary">
+                        @if($status=='Active')
+                            <a href="/report">
+                                <button class="btn btn-outline-primary">Kembali</button>
+                            </a>
+                        @elseif($status=='Rejected')
+                            <a href="/report/reject">
+                                <button class="btn  btn-outline-primary">Kembali</button>
+                            </a>
+                        @elseif($status=='Submitted')
+                            <a href="/report/review">
+                                <button class="btn  btn-outline-primary">Kembali</button>
+                            </a>
+                        @endif
                     </form>
 
-                @endif
-
-                <form action="/lampiran/update" method="POST" enctype="multipart/form-data">
-                    {{ csrf_field() }}
-                    {{ method_field('PATCH') }}
-                    <div class="table-responsive">
-                        <table id="table_picture" class="">
-                            <thead>
-                            <tr>
-                                <th>Gambar</th>
-                                <th>Keterangan</th>
-
-                                @if($report->first()->status_id!=5)
-                                    <th>Aksi</th>
-                                @endif
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($gambar as $g)
-                                @csrf
-                                <tr>
-                                    <td><img width="150px" src="{{ url('/gambar_harian/'.$g->image_path) }}"></td>
-                                    <input type="hidden" id="image_id" name="image_id[]"
-                                           value={{$g->id }}>
-                                    <td><textarea class="form-control" rows="5" id="keterangan"
-                                                  name="keterangan[]">{{$g->keterangan}}</textarea></td>
-                                    <td><a class="btn btn-danger" href="/lampiran/hapus/{{ $g->id }}">HAPUS</a></td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <br>
-                    <input type="submit" value="Simpan " class="btn btn-primary">
-                    @if($status=='Active')
-                        <a href="/report">
-                            <button class="btn btn-outline-primary">Kembali</button>
-                        </a>
-                    @elseif($status=='Rejected')
-                        <a href="/report/reject">
-                            <button class="btn  btn-outline-primary">Kembali</button>
-                        </a>
-                    @elseif($status=='Submitted')
-                        <a href="/report/review">
-                            <button class="btn  btn-outline-primary">Kembali</button>
-                        </a>
-                    @endif
-                </form>
-
+                </div>
             </div>
-        </div>
         </div>
     </div>
 
