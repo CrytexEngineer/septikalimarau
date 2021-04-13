@@ -73,7 +73,7 @@
         </div>
 
     </div>
-
+    </div>
     @push('js')
 
         <script>

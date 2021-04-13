@@ -30,7 +30,7 @@ class MassReportExporter implements WithMultipleSheets
 
 
         $sheets[] = new MassReportSheet($this->reports);
-        $sheets[] = new ImagesSheet($this->reports);
+        $sheets[] = new MassImagesSheet($this->reports);
 
 
         return $sheets;

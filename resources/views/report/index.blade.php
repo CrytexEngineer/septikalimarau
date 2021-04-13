@@ -45,16 +45,15 @@
                 </div>
             </div>
         </div>
-
-
         <div class="row">
             <div class="col-md-12">
+                @include('validation_error')
                 <div class="card">
                     <div class="card-header card-header-primary">
-                        <h4 class="card-title ">Laporan Harian Aktif</h4>
+                        <h4 class="card-title "> Laporan Harian Aktif</h4>
+                        <p class="card-category"></p>
+
                     </div>
-
-
                     <div class="card-body">
                         <div class="table-responsive">
                             <div class="row">
@@ -80,10 +79,11 @@
                                     </button>
                                 </div>
                             </div>
-
                             <table class="display  compact" id="table_task">
                                 <thead class=" text-primary">
-                                <th>Detail</th>
+                                <th>
+                                    Detail
+                                </th>
                                 <th>
                                     ID
                                 </th>
@@ -112,66 +112,48 @@
                         </div>
                     </div>
                 </div>
+
             </div>
 
         </div>
     </div>
-
-
     @push('js')
 
         <script>
 
 
             var table = $('#table_task').DataTable({
-
+                columnDefs: [
+                    {width: '20%'}
+                ],
+                "order": [],
+                fixedColumns: true,
                 processing: true,
-                serverSide: true,
+                serverSide: false,
                 ajax: {
                     "url": '/report/json',
                     "data": function (d) {
                         d.status_id = "1";
                         d.unit_id = $('#filter_unit_id').val();
                         d.filter_tanggal = $('#filter_tanggal option:selected').text();
-                    },
-
-                    error: function (result) {
-                        console.log(result);
-                    },
+                    }
                 },
                 select: {
                     style: 'multi'
                 },
 
                 columns: [
-
                     {
                         "class": "details-control",
                         "orderable": false,
                         "data": null,
                         "defaultContent": ""
                     },
-
-                    {
-                        data: 'id',
-                        name: 'id'
-                    },
-                    {
-                        data: 'unit_name',
-                        name: 'unit_name'
-                    },
-                    {
-                        data: 'task_name',
-                        name: 'task_name'
-                    },
-                    {
-                        data: 'created_at',
-                        name: 'created_at'
-                    },
-                    {
-                        data: 'updated_at',
-                        name: 'updated_at'
-                    },
+                    {data: 'id', name: 'id'},
+                    {data: 'unit_name', name: 'unit_name'},
+                    {data: 'task_name', name: 'task_name'},
+                    {data: 'created_at', name: 'created_at'},
+                    {data: 'updated_at', name: 'updated_at'},
                     {
                         data: 'action',
                         className: "dt-center editor-edit",
@@ -190,6 +172,7 @@
                         defaultContent: "<button type='submit'class='btn btn-outline-danger btn-block'><i class='fas fa-trash'></i></button>",
                         orderable: false
                     },
+
                 ],
             });
 
@@ -263,6 +246,7 @@
                 });
             });
 
+
             $('#buttonSubmit').click(function () {
                 var data = table.rows({selected: true}).data()
                 if (confirm('Apakah Anda Yakin Ingin Submit Masal?')) {
@@ -296,7 +280,7 @@
 
                         },
                         error: function (err, errCode, errMessage) {
-
+                            alert(errMessage)
                             alert("Tidak Ada Data Dipilih");
                         }
                     });
@@ -335,7 +319,7 @@
 
                         },
                         error: function (err, errCode, errMessage) {
-
+                            console.log("S");
                             alert("Tidak Ada Data Dipilih");
                         }
                     });
@@ -344,9 +328,18 @@
 
 
             $(document).ready(function () {
-                var openRows = [];
+                // stores the open rows (detailed view)
+                var openRows = new Array();
                 $("#filter_unit_id").val($("#filter_unit_id option:last").val());
 
+                /**
+                 * Close all previously opened rows
+                 *
+                 * @param {object} table which is to be modified
+                 * @param {object} selectedRow needs to determine,
+                 * which other rows can be closed
+                 * @returns {null}
+                 */
                 function closeOpenedRows(table, selectedRow) {
                     $.each(openRows, function (index, openRow) {
                         // not the selected row!
@@ -367,6 +360,7 @@
                 $('#table_task tbody').on('click', 'tr td.details-control', function () {
                     var tr = $(this).closest('tr');
                     var row = table.row(tr);
+                    var idx = $.inArray(tr.attr('id'), openRows);
 
                     if (row.child.isShown()) {
                         // This row is already open - change icon
@@ -399,7 +393,6 @@
                     }
                 });
 
-
                 table.on('draw', function () {
                     $.each(openRows, function (i, id) {
                         $('#id' + ' td.details-control').trigger('click');
@@ -407,9 +400,8 @@
                 });
 
                 $('#unit_id').on('change', function (e) {
-                    table.ajax.reload(function (result) {
-                        console.log(result);
-                    });
+                    table.ajax.reload();
+
 
                     var d = e.target.value;
                     $.ajax({
@@ -427,8 +419,8 @@
                     })
                 });
 
-            });
-
+            })
+            ;
             $('#filter_unit_id').on('change', function (e) {
                 table.ajax.reload(function (result) {
                 });
@@ -440,6 +432,9 @@
             });
 
             function format(d, data) {
+
+
+
                 var petugas_pagi = (d.petugas_pagi) ? d.petugas_pagi : ' Tidak Diisi'
                 var petugas_siang = (d.petugas_siang) ? d.petugas_siang : ' Tidak Diisi'
                 var keterangan = (d.keterangan) ? d.keterangan : ' Tidak Diisi'
@@ -520,6 +515,8 @@
 
 
         </script>
+
+
     @endpush
 
 @endsection

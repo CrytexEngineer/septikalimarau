@@ -2,24 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="824dbded-0227-432a-97fe-96ce5d4582bd" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Export/MassImagesSheet.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Export/ImagesSheet.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Export/ImagesSheet.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Export/MassReportExporter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Export/MassReportExporter.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Export/MassReportSheet.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Export/MassReportSheet.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Export/ReportSheet.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Export/ReportSheet.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/RecordController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/RecordController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ReportController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ReportController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/material/js/material-dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/material/js/material-dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/item/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/item/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/footers/auth.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/footers/auth.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/footers/guest.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/footers/guest.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/navbars/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/navbars/sidebar.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/record/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/record/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/record/view.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/record/view.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/report/archive.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/report/archive.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/report/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/report/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/report/reject.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/report/reject.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/report/review.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/report/review.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -327,7 +314,7 @@
       <workItem from="1617059845624" duration="31583000" />
       <workItem from="1617246664350" duration="576000" />
       <workItem from="1618156156443" duration="20725000" />
-      <workItem from="1618278859261" duration="1104000" />
+      <workItem from="1618278859261" duration="3858000" />
     </task>
     <servers />
   </component>
@@ -367,10 +354,10 @@
     <state x="-1297" y="75" key="SettingsEditor/0.0.1366.728/-1600.0.1600.860@-1600.0.1600.860" timestamp="1613179349208" />
     <state x="259" y="12" key="SettingsEditor/0.0.1366.728/-1600.0.1600.860@0.0.1366.728" timestamp="1613235444748" />
     <state x="259" y="12" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1613919491395" />
-    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1618156426522">
+    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1618289151458">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1618156426522" />
+    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1618289151458" />
     <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1617194371130">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -445,7 +432,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/resources/views/report/index.blade.php</url>
-          <line>51</line>
+          <line>323</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
@@ -459,9 +446,9 @@
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/resources/views/report/index.blade.php</url>
-          <line>218</line>
-          <option name="timeStamp" value="20" />
+          <url>file://$PROJECT_DIR$/resources/views/report/archive.blade.php</url>
+          <line>3</line>
+          <option name="timeStamp" value="21" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
