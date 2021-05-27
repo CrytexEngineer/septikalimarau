@@ -93,34 +93,7 @@ class ReportController extends Controller
 
 
         return DataTables::of($this->reports)->addColumn('action', function ($row) {
-
             $action = '<a href="/report/' . $row->id . '" class="btn btn-primary btn-block" type="submit"><i class="fas fa-list"></i> </a>';
-//            if ($row->status_id == 1 || $row->status_id == 6) {
-//                $action .= \Form::open(['url' => 'report/' . $row->id, 'method' => 'patch', 'style' => 'float:left margin_right:8px']);
-//                $action .= "<input type='hidden' id='status_id' name='status_id' value=2>";
-//                $action .= "<button type='submit'class='btn btn-primary btn-block'><i class='fas fa-key'></i></button>";
-//                $action .= \Form::close();
-//                $action .= \Form::open(['url' => 'report/' . $row->id, 'method' => 'delete', 'style' => 'float:right']);
-//                $action .= "<button onclick='return confirm(\"Apakah Anda Yakin?\")'  type='submit'class='btn btn-primary btn-block'><i class='fas fa-trash'></i></button>";
-//                $action .= \Form::close();
-//
-//            }
-            if ($row->status_id == 2) {
-                if (Auth::user()->hasAnyRoles(['Admin', 'Kasi'])) {
-
-//                    $action .= \Form::open(['url' => 'report/' . $row->id, 'method' => 'patch', 'style' => 'float:left margin_right:8px']);
-//                    $action .= "<input type='hidden' id='status_id' name='status_id' value=5>";
-//                    $action .= "<button type='submit'class='btn btn-primary  btn-block'><i class='fas fa-check'></i> </button>";
-//                    $action .= \Form::close();
-//
-//                    $action .= \Form::open(['url' => 'report/' . $row->id, 'method' => 'patch', 'style' => 'float:right']);
-//                    $action .= "<input type='hidden' id='status_id' name='status_id' value=6>";
-//                    $action .= "<button type='submit'class='btn btn-primary  btn-block'><i class='fas fa-times-circle'></i> </button>";
-//                    $action .= \Form::close();
-
-                }
-            }
-
             if ($row->status_id == 5) {
                 $action .= '<div><a href="/report/export/' . $row->id . '" class="btn btn-outline-primary btn-block "><i class="fas fa-download"></i> </a>';
                 $action .= '</br>';
@@ -274,8 +247,9 @@ class ReportController extends Controller
         whereDate('reports.created_at', Carbon::now()->toDateString())->get()->first();
 
         if (!$existingReport) {
-            $task = new Report(['status_id' => 1, 'task_id' => $request->input('task_id'), 'unit_id' => $request->input('unit_id')]);
-            $task->save();
+            $report = new Report(['status_id' => 1, 'task_id' => $request->input('task_id'), 'unit_id' => $request->input('unit_id')]);
+            $report->save();
+
             return redirect()->back();
         }
 

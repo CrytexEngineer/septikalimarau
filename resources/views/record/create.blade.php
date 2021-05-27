@@ -5,7 +5,7 @@
         @include('validation_error')
         {{ Form::model($records,['url'=>'record'])}}
         {{--                {{dd($record->all())}}--}}
-        <div clas="row">
+        <divi clas="row">
             <div class="card">
                 <div class="card-header card-header-primary">
 
@@ -38,66 +38,6 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @if(!$records)
-                                @foreach($items as $item)
-                                    <tr>
-                                        <td>{{$loop->index}}</td>
-                                        <input type="hidden" id="report_id[]" name="report_id[]"
-                                               value={{$report->first()->id }}>
-                                        <input type="hidden" id="item_id[]" name="item_id[]" value={{$item->id }}>
-                                        <td>
-                                            {{$item->item_name }}
-                                            <input type="hidden" id="item_name[]" name="item_name[]"
-                                                   value="{{$item->item_name }}"
-                                                   readonly>
-                                        </td>
-
-                                        @if($isPetugas)
-                                            @if(!$isJamSiang)
-                                                <td>
-                                                    {{ Form::select('kondisi_pagi[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), null, array(
-                                                        'class' => 'form-control'
-                                                        ))}}
-                                                </td>
-                                                <td>
-                                                    {{ Form::select('kondisi_siang[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), null, array(
-                                                     'class' => 'form-control', 'disabled'
-                                                     ))}}
-                                                    {{ Form::select('kondisi_siang[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), null, array(
-                                                                                                'class' => 'form-control', 'hidden'))}}
-                                                </td>
-                                            @else
-                                                <td>
-                                                    {{ Form::select('kondisi_pagi[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), null, array(
-                                                        'class' => 'form-control', 'disabled'
-                                                        ))}}
-                                                    {{ Form::select('kondisi_pagi[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), null, array(
-                                                      'class' => 'form-control', 'hidden'
-                                                      ))}}
-                                                </td>
-                                                <td>
-                                                    {{ Form::select('kondisi_siang[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), null, array(
-                                                        'class' => 'form-control'
-                                                        ))}}
-                                                </td>
-                                            @endif
-                                        @else
-                                            <td>
-                                                {{ Form::select('kondisi_pagi[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), null, array(
-                                                      'class' => 'form-control'
-                                                      ))}}
-                                            </td>
-                                            <td>
-                                                {{ Form::select('kondisi_siang[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), null, array(
-                                                            'class' => 'form-control'
-                                                            ))}}
-                                            </td>
-                                        @endif
-
-                                    </tr>
-                                @endforeach
-                            @endif
-
                             @if($records)
                                 @foreach($records as $record)
                                     <tr>
@@ -147,14 +87,14 @@
                                             @endif
                                         @else
                                             <td>
-                                                {{ Form::select('kondisi_pagi[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), null, array(
-                                               'class' => 'form-control'
-                                               ))}}
+                                                {{ Form::select('kondisi_pagi[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), $record->kondisi_pagi, array(
+                                                    'class' => 'form-control'
+                                                    ))}}
                                             </td>
                                             <td>
-                                                {{ Form::select('kondisi_siang[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), null, array(
-                                                           'class' => 'form-control'
-                                                           ))}}
+                                                {{ Form::select('kondisi_siang[]', array('0'=>'Belum Di Cek','1'=>'Baik','2'=>'Kurang Baik','3'=>'Tidak Baik'), $record->kondisi_siang, array(
+                                                      'class' => 'form-control'
+                                                      ))}}
                                             </td>
 
                                     </tr>
@@ -184,7 +124,8 @@
                             @else
                                 <div class="col-sm-3">
                                     <label>Petugas Pagi</label>
-                                    {{ Form::select('petugas_pagi_id',$petugas,$selectedPetugasPagi?$selectedPetugasPagi->id:null,['class'=>'form-control','placeholder'=>'Pilih Petugas','id'=>'id'])}}
+                                    {{ Form::select('petugas_pagi_id',$petugas,$selectedPetugasPagi?$selectedPetugasPagi->id:null,['class'=>'form-control','placeholder'=>'Pilih Petugas','id'=>'id','hidden'])}}
+                                    {{ Form::select('petugas_pagi_id',$petugas,$selectedPetugasPagi?$selectedPetugasPagi->id:null,['class'=>'form-control','placeholder'=>'Pilih Petugas','id'=>'id','disabled'])}}
 
 
                                 </div>
@@ -226,8 +167,7 @@
                     {{Form::close()}}
                 </div>
             </div>
-        </div>
-
+        </divi>
         <div class="row">
             <div class="card">
                 <div class="card-body">

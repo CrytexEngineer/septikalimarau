@@ -21,10 +21,11 @@ class TaskController extends Controller
     public function json(Request $request)
     {
 
-        return DataTables::of(Task::where('unit_id','=',$request->input('id')))->addColumn('action', function ($row) {
+        return DataTables::of(Task::where('unit_id', '=', $request->input('id')))->addColumn('action', function ($row) {
 
-            $action = '<div class="float-sm-left"><a href="/task/' . $row->id .'" class="btn btn-primary "><i class="fas fa-list"></i> Item</a>';
-//            $action .= '<div class="float-sm-right"><a href="/task/' . $row->id . '/dashboard" class="btn btn-primary "><i class="fas fa-edit"></i> Edit</a>';
+            $action = '<div class="float-sm-left"><a href="/task/' . $row->id . '" class="btn btn-primary "><i class="fas fa-list"></i> Item</a>';
+            $action .= '<div class="float-sm-left"><a href="/task/' . $row->id . '/edit" class="btn btn-primary "><i class="fas fa-user-edit"></i> Ubah</a>';
+            $action .= \Form::close();
             $action .= \Form::open(['url' => 'task/' . $row->id, 'method' => 'delete', 'style' => 'float:right']);
             $action .= "<button type='submit'class='btn btn-primary '><i class='fas fa-trash-alt'></i>Hapus</button>";
             $action .= \Form::close();
@@ -37,13 +38,13 @@ class TaskController extends Controller
     {
 
         if (Auth::user()->hasAnyroles(['Kanit'])) {
-            $data['unit'] = Unit::where('id',Auth::user()->unit_id)->pluck('unit_name', 'id');
-            return view("task.index",$data);
+            $data['unit'] = Unit::where('id', Auth::user()->unit_id)->pluck('unit_name', 'id');
+            return view("task.index", $data);
         }
 
-        if (Auth::user()->hasAnyroles(['Admin','Kasi'])) {
+        if (Auth::user()->hasAnyroles(['Admin', 'Kasi'])) {
             $data['unit'] = Unit::pluck('unit_name', 'id');
-            return view("task.index",$data);
+            return view("task.index", $data);
         }
 
     }
@@ -69,7 +70,7 @@ class TaskController extends Controller
     {
 
         $messege = ["task_name.required" => "Harap Masukan Nama Task"];
-        $request->validate(["task_name" => 'required', 'string', 'max:255'],$messege);
+        $request->validate(["task_name" => 'required', 'string', 'max:255'], $messege);
         $task = new Task($request->all());
         $task->save();
         return redirect()->back()->withInput();
@@ -84,7 +85,7 @@ class TaskController extends Controller
     public function show($id)
     {
 
-        return redirect('/item/'.$id);
+        return redirect('/item/' . $id);
     }
 
     /**
@@ -95,7 +96,8 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
-        return view('task.edit');
+        $data['task'] = Task::find($id);
+        return view('task.edit', $data);
     }
 
     /**
@@ -107,7 +109,11 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $task = Task::where('id',$id)->get()->first();
+        $taskName = $task->task_name;
+        $task['task_name'] = $request->task_name;
+        $task->save();
+        return redirect('/task')->withErrors($taskName . "telah berhasil diubah menjadi " . $task->task_name);
     }
 
     /**

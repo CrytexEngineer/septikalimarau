@@ -173,7 +173,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-3">
-                                {{Form::submit('Simpank Data',['class'=>'btn btn-primary'])}}
+                                {{Form::submit('Simpan Data',['class'=>'btn btn-primary'])}}
                                 <a href="/user" class="btn btn-primary">Kembali</a>
                             </div>
                         </div>

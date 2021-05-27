@@ -47,7 +47,6 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                @include('validation_error')
                 <div class="card">
                     <div class="card-header card-header-primary">
                         <h4 class="card-title "> Laporan Harian Aktif</h4>

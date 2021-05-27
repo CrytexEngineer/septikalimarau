@@ -63,7 +63,7 @@ class RecordController extends Controller
                     ['id' => $report_id,], ['keterangan' => $request->input('keterangan'),
                         'kasi_id' => $request->input('kasi_id'),
                         'kanit_id' => $request->input('kanit_id'),
-                        'petugas_pagi_id' =>$request->input('petugas_pagi_id'),
+                        'petugas_pagi_id' => $request->input('petugas_pagi_id'),
                         'petugas_siang_id' => $request->input('petugas_siang_id'),
                         'updated_at' => Carbon::now()]
                 );
@@ -81,26 +81,34 @@ class RecordController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function json(Request $request){
+    public function json(Request $request)
+    {
         $records = Record::where('report_id', '=', $request->input('id'))->join("items", "records.item_id", "=", "items.id")->get()->all();
         return response()->json(['statusCode' => '200', 'data' => $records]);
     }
 
     public function show($id)
-    {   $report = Report::where('id', '=', $id)->get();
+    {
+        $report = Report::where('id', '=', $id)->get();
         date_default_timezone_set("Asia/Kuala_Lumpur");
         $currentTime = strtotime(date('Y-m-d H:i:s'));
-        $currentDate= date('Y-m-d');
+        $currentDate = date('Y-m-d');
         $jamSiang = strtotime("12:00:00");
-        $isSameDate=($currentDate == $report->first()->created_at->toDateString());
+        $isSameDate = ($currentDate == $report->first()->created_at->toDateString());
 
-
-
+        $records = Record::where('report_id', '=', $id)->join("items", "records.item_id", "=", "items.id")->get()->all();
+        $items = Item::where('task_id', '=', $report->first()->task_id)->get()->all();
+        if (!$records) {
+            foreach ($items as $item) {
+                $record = new Record(['report_id' => $report->first()->id, 'item_id' => $item->id, 'kondisi_pagi' => 'Tidak Diisi', 'kondisi_siang' => 'Tidak Diisi']);
+                $record->save();
+            }
+        }
         //Role and Time Based Filling Form Policy
-        $data['isPetugas']=(Auth::user()->role_id==4);
+        $data['isPetugas'] = (Auth::user()->role_id == 4);
         $data['isJamSiang'] = $currentTime > $jamSiang;
         $data['report'] = $report;
-        $data['records'] = Record::where('report_id', '=', $id)->join("items", "records.item_id", "=", "items.id")->get()->all();
+        $data['records'] =  Record::where('report_id', '=', $id)->join("items", "records.item_id", "=", "items.id")->get()->all();
         $data['selectedKasi'] = Report::where('reports.id', '=', $id)->join("users", "reports.kasi_id", "=", "users.id")->get()->first();
         $data['selectedKanit'] = Report::where('reports.id', '=', $id)->join("users", "reports.kanit_id", "=", "users.id")->get()->first();
         $data['selectedPetugasPagi'] = Report::where('reports.id', '=', $id)->join("users", "reports.petugas_pagi_id", "=", "users.id")->get()->first();
@@ -113,28 +121,25 @@ class RecordController extends Controller
         if (Auth::user()->hasAnyRoles(['Admin', 'Kasi'])) {
             $data['kanit'] = User::where('role_id', '=', '3')->get()->pluck('name', 'id');
         }
-        $data['petugas']= User::where('unit_id', '=',$report->first()->unit_id )->get()->pluck('name', 'id');
+        $data['petugas'] = User::where('unit_id', '=', $report->first()->unit_id)->get()->pluck('name', 'id');
         $data['items'] = Item::where('task_id', '=', $report->first()->task_id)->get();
         $data['task'] = Task::where('tasks.id', '=', $report->first()->task_id);
         $data['gambar'] = Images::where("report_id", "=", $id)->get();
         $data['status'] = Report::where('reports.id', '=', $id)->join('status', 'status.id', '=', 'reports.status_id')->get()->first()['status_name'];
 
 
-
-
-        if (($report->first()->status_id == 1||$report->first()->status_id==6)&& $isSameDate) {
+        if (($report->first()->status_id == 1 || $report->first()->status_id == 6) && $isSameDate) {
 
             return view("record.create", $data);
 
         }
-        if (($report->first()->status_id == 1||$report->first()->status_id==6)&& Auth::user()->hasAnyRoles(['Admin', 'Kasi','Kanit'])) {
+        if (($report->first()->status_id == 1 || $report->first()->status_id == 6) && Auth::user()->hasAnyRoles(['Admin', 'Kasi', 'Kanit'])) {
             return view("record.create", $data);
 
         }
         if ($report->first()->status_id == 2 && Auth::user()->hasAnyRoles(['Admin', 'Kasi'])) {
             return view("record.create", $data);
-        }
-        else {
+        } else {
 
             return view("record.view", $data);
         }

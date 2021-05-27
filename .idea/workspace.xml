@@ -2,10 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="824dbded-0227-432a-97fe-96ce5d4582bd" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/commandlinetools/Laravel_5_2_21__1_11_PM.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/commandlinetools/schemas/frameworkDescriptionVersion1.1.4.xsd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/simbandara.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/simbandara.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Export/MassImagesSheet.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Export/MassImagesSheet.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Export/MassReportSheet.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Export/MassReportSheet.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Export/ReportSheet.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Export/ReportSheet.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/RecordController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/RecordController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ReportController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ReportController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/record/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/record/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/record/view.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/record/view.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/report/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/report/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/task/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/task/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/users/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/users/edit.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,7 +25,7 @@
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution>
-      <executable />
+      <phar pharPath="$PROJECT_DIR$/composer.phar" interpreterId="c176afdd-9694-452d-8e29-00a7add039de" />
     </execution>
   </component>
   <component name="DatabaseView">
@@ -42,7 +52,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration">
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/doctrine/instantiator" />
       <path value="$PROJECT_DIR$/vendor/voku/portable-ascii" />
@@ -118,7 +128,6 @@
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-grapheme" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-normalizer" />
       <path value="$PROJECT_DIR$/vendor/hamcrest/hamcrest-php" />
-      <path value="$PROJECT_DIR$/vendor/dnoegel/php-xdg-base-dir" />
       <path value="$PROJECT_DIR$/vendor/tijsverkoyen/css-to-inline-styles" />
       <path value="$PROJECT_DIR$/vendor/egulias/email-validator" />
       <path value="$PROJECT_DIR$/vendor/phpspec/prophecy" />
@@ -167,16 +176,23 @@
   <component name="ProjectId" id="1lM52NftEv75nJl3NflZE2rCD39" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Export" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php" />
+    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -196,7 +212,7 @@
   </component>
   <component name="RunManager">
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
-      <TestRunner scope="XML" />
+      <TestRunner configuration_file="$PROJECT_DIR$/phpunit.xml" scope="XML" />
       <method v="2" />
     </configuration>
   </component>
@@ -212,6 +228,7 @@
       </list>
     </option>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -313,92 +330,34 @@
       <workItem from="1617059845624" duration="31583000" />
       <workItem from="1617246664350" duration="576000" />
       <workItem from="1618156156443" duration="20725000" />
-      <workItem from="1618278859261" duration="4675000" />
+      <workItem from="1618278859261" duration="7428000" />
+      <workItem from="1618448299121" duration="10330000" />
+      <workItem from="1618724837599" duration="9569000" />
+      <workItem from="1619072983265" duration="4004000" />
+      <workItem from="1619665733774" duration="6538000" />
+      <workItem from="1619931331194" duration="853000" />
+      <workItem from="1619932279487" duration="1264000" />
+      <workItem from="1620010238970" duration="4000" />
+      <workItem from="1620113639502" duration="5000" />
+      <workItem from="1621833796264" duration="34000" />
+      <workItem from="1622100754873" duration="674000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="3" />
   </component>
-  <component name="WindowStateProjectService">
-    <state x="437" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1617064722705">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="437" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1366.728@0.0.1366.728" timestamp="1617064722705" />
-    <state x="413" y="121" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1617176777415">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="413" y="121" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728/-1600.0.1600.860@0.0.1366.728" timestamp="1613842295299" />
-    <state x="413" y="121" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728@0.0.1366.728" timestamp="1617176777415" />
-    <state x="380" y="49" width="620" height="630" key="#phpunit.xml" timestamp="1611464049257">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="380" y="49" width="620" height="630" key="#phpunit.xml/0.0.1366.728@0.0.1366.728" timestamp="1611464049257" />
-    <state x="92" y="92" width="1182" height="544" key="DiffContextDialog" timestamp="1618289378598">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="92" y="92" width="1182" height="544" key="DiffContextDialog/0.0.1366.728@0.0.1366.728" timestamp="1618289378598" />
-    <state x="463" y="121" key="FileChooserDialogImpl" timestamp="1613448876690">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="463" y="121" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1613448876690" />
-    <state x="459" y="198" key="NewPhpClassDialog" timestamp="1617175987394">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="459" y="198" key="NewPhpClassDialog/0.0.1366.728/-1920.0.1920.1040@0.0.1366.728" timestamp="1615822240506" />
-    <state x="459" y="198" key="NewPhpClassDialog/0.0.1366.728@0.0.1366.728" timestamp="1617175987394" />
-    <state x="517" y="295" key="NewPhpFileDialog" timestamp="1612147862924">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="517" y="295" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1612147862924" />
-    <state x="259" y="12" key="SettingsEditor" timestamp="1613919491395">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="-1297" y="75" key="SettingsEditor/0.0.1366.728/-1600.0.1600.860@-1600.0.1600.860" timestamp="1613179349208" />
-    <state x="259" y="12" key="SettingsEditor/0.0.1366.728/-1600.0.1600.860@0.0.1366.728" timestamp="1613235444748" />
-    <state x="259" y="12" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1613919491395" />
-    <state x="157" y="152" width="1182" height="544" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1618289378599">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="157" y="152" width="1182" height="544" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1618289378599" />
-    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1617194371130">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1617194371130" />
-    <state x="391" y="191" key="com.intellij.ide.util.TipDialog" timestamp="1618278885572">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="391" y="191" key="com.intellij.ide.util.TipDialog/0.0.1366.728/-1600.0.1600.860@0.0.1366.728" timestamp="1613868283100" />
-    <state x="391" y="191" key="com.intellij.ide.util.TipDialog/0.0.1366.728/-1920.0.1920.1040@0.0.1366.728" timestamp="1616136861811" />
-    <state x="391" y="191" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1618278885572" />
-    <state x="729" y="0" width="653" height="735" key="dock-window-1" timestamp="1617069406089">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="-808" y="0" width="817" height="869" key="dock-window-1/0.0.1366.728/-1600.0.1600.860@-1600.0.1600.860" timestamp="1613179806318" />
-    <state x="676" y="0" width="697" height="735" key="dock-window-1/0.0.1366.728/-1600.0.1600.860@0.0.1366.728" timestamp="1613404309258" />
-    <state x="0" y="0" width="1382" height="817" key="dock-window-1/0.0.1366.728/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1616175502461" />
-    <state x="-7" y="0" width="1378" height="735" key="dock-window-1/0.0.1366.728/-1920.0.1920.1040@0.0.1366.728" timestamp="1616263493410" />
-    <state x="729" y="0" width="653" height="735" key="dock-window-1/0.0.1366.728@0.0.1366.728" timestamp="1617069406089" />
-    <state x="731" y="0" width="642" height="735" maximized="true" key="dock-window-2" timestamp="1617186816516">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="731" y="0" width="642" height="735" maximized="true" key="dock-window-2/0.0.1366.728@0.0.1366.728" timestamp="1617186816516" />
-    <state x="389" y="125" width="607" height="526" key="find.popup" timestamp="1618156675839">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="390" y="125" width="607" height="526" key="find.popup/0.0.1366.728/-1600.0.1600.860@0.0.1366.728" timestamp="1613288351526" />
-    <state x="-1372" y="179" width="854" height="752" key="find.popup/0.0.1366.728/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1616176288572" />
-    <state x="390" y="125" width="607" height="526" key="find.popup/0.0.1366.728/-1920.0.1920.1040@0.0.1366.728" timestamp="1616172620110" />
-    <state x="389" y="125" width="607" height="526" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1618156675839" />
-    <state x="339" y="162" key="run.anything.popup" timestamp="1613946904739">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="339" y="162" key="run.anything.popup/0.0.1366.728/-1600.0.1600.860@0.0.1366.728" timestamp="1613900962641" />
-    <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1613946904739" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1618214926152">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1618214926152" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -420,7 +379,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/resources/views/record/create.blade.php</url>
-          <line>246</line>
+          <line>186</line>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
@@ -430,28 +389,43 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/resources/views/record/create.blade.php</url>
-          <line>210</line>
+          <line>151</line>
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/resources/views/report/index.blade.php</url>
-          <line>323</line>
+          <line>322</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/resources/views/record/create.blade.php</url>
-          <line>169</line>
+          <line>109</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/resources/views/record/create.blade.php</url>
-          <line>231</line>
+          <line>171</line>
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/resources/views/report/archive.blade.php</url>
           <line>3</line>
           <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/resources/views/record/create.blade.php</url>
+          <line>110</line>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/resources/views/record/create.blade.php</url>
+          <line>55</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/resources/views/record/create.blade.php</url>
+          <line>54</line>
+          <option name="timeStamp" value="24" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
